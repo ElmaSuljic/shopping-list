@@ -17,9 +17,9 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-					Articles
+					Categories
 					<span class="btn btn-primary cursor-pointer" style="float:right;" onclick="showcreateform()">
-						Add new articles
+						Add new category
 					</span>
 				</div>
 
@@ -42,16 +42,9 @@
 							<td>{{$art->articlename}}</td>
 							<td>{{$art->category->categoryname}}</td>
 							<td>
-								<!--
 								<button class="btn btn-primary cursor-pointer">
 									<a style="color:#fff" href="articles/{{$art->articleId}}/edit">Edit</a> 
-								</button> 
-								-->
-								
-								<button class="btn btn-primary cursor-pointer" onclick="showeditform({{$art->articleId}})">
-									Edit
-								</button> 
-								
+								</button>
 							</td>
 							<td>
 							{!!Form::open(['action' => ['ArticlesController@destroy', $art->articleId], 'method' => 'POST', 'class' => 'pull-right'])!!}
@@ -82,7 +75,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
 				</div>
-				{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Article name'])}}
+				{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Article name name'])}}
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -101,31 +94,8 @@
 		</div>
 		
 		<div class="col-md-6" id="editform" style="display:none">
-			<h4 class="py-2">Edit Article</h4>
-			{!! Form::open(['action' => ['ArticlesController@update', $art->articleId], 'id' => 'formeditaction', 'method' => 'POST']) !!}
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
-					</div>
-					{{Form::text('name', $art->articlename, ['class' => 'form-control', 'id' => 'nameedit', 'placeholder' => 'Article name'])}}
-				</div>
-					
-				<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
-				</div>
-				<select name="category" id="categoryselect" class="form-control form-control-md">
-			        @foreach($categories as $cat)
-						<option value="{{$cat->categoryId}}" >{{$cat->categoryname}}</option>
-					@endforeach
-				</select>
-			</div>
-				{{Form::hidden('_method','PUT')}}
-				<div style="text-align:center">
-					{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-				</div>
-			{!! Form::close() !!}
-			</div>
+			<h4>Add new category</h4>
+			<div id="inserteditform"></div>
 		</div>
 	</div>
 	
@@ -137,31 +107,8 @@
 		}, 500);
 
 		$('#createform').slideToggle();
-		$('#editform').css('display','none');
 	}
-	function showeditform(id){
-		$('#editform').css('display','block');
-		$('#createform').css('display','none');
-		$.ajax({
-			url: 'articles/'+id,
-			type: 'get',
-			dataType: 'json',
-			contentType: 'application/json; charset=utf-8',
-			success:function(data){
-				$('#nameedit').val(data.name);
-				var prevaction = $('#formeditaction').attr('action');
-				var res = prevaction.split("/articles");
-				var newaction = res[0]+'/articles/'+data.id;
-				$('#formeditaction').attr('action', newaction);
-				
-				$("#categoryselect option[value='"+data.category+"']").attr('selected', 'selected');
-			}, error: function (xhr, ajaxOptions, thrownError) {
-				console.log(xhr.status);
-				console.log(thrownError);
-			  }
-		  })
-
-	}
+	
 
 	</script>
 

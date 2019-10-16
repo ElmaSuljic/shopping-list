@@ -51,7 +51,7 @@
                             </li>
 							@else
 								<li class="nav-item">
-                                    <a class="nav-link" href="admin">{{ __('Administrator') }}</a>
+                                    <a class="nav-link" href="home">{{ __('Dashboard') }}</a>
                                 </li>
                             @endif
                         @endguest

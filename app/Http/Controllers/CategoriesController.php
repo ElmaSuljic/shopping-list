@@ -10,6 +10,11 @@ class CategoriesController extends Controller
     /* See index page of categories    */
     public function index()
     {
+		/* Check to see if user is administrator */
+		if((Auth::user()->usertype == 'user')){
+            return redirect('/home')->with('error', 'You are not authorized to see that page!');
+        }
+		
 		$categories = Categorie::all();
 		$data = ['categories' =>$categories];
         return view('categories.index')->with('data', $data);
@@ -34,10 +39,17 @@ class CategoriesController extends Controller
 
     }
 
-
+	/* Get categorie details for ajax display */
     public function show($id)
     {
-       
+		$cat = Categorie::where('categoryId',$id)->get();
+		$categorie = $cat->first();
+		$data = array(
+			'id'  => $categorie->categoryId,
+			'name'  => $categorie->categoryname,
+		);
+
+		echo json_encode($data);
     }
 
     /* Go to edit category form */

@@ -37,9 +37,14 @@
 							<th scope="row">1</th>
 							<td>{{$cat->categoryname}}</td>
 							<td>
+								<!--
 								<button class="btn btn-primary cursor-pointer">
 									<a style="color:#fff" href="categories/{{$cat->categoryId}}/edit">Edit</a> 
-								</button>
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform({{$cat->categoryId}})">
+									Edit
+								</button> 
 							</td>
 							<td>
 							{!!Form::open(['action' => ['CategoriesController@destroy', $cat->categoryId], 'method' => 'POST', 'class' => 'pull-right'])!!}
@@ -61,7 +66,7 @@
             </div>
         </div>
 		<div class="col-md-6" id="createform" style="display:none">
-			<h4>Add new category</h4>
+			<h4 class="py-2">Add new category</h4>
 			{!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 			 {{ csrf_field() }}
 			
@@ -77,8 +82,19 @@
 		</div>
 		
 		<div class="col-md-6" id="editform" style="display:none">
-			<h4>Add new category</h4>
-			<div id="inserteditform"></div>
+			<h4 class="py-2">Edit category</h4>
+			<div id="inserteditform">
+				{!! Form::open(['action' => ['CategoriesController@update', $cat->categoryId], 'id' => 'formeditaction', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+					</div>
+					{{Form::text('name', $cat->categoryname, ['class' => 'form-control', 'id' => 'nameedit','placeholder' => 'Categorie name'])}}
+				</div>
+				{{Form::hidden('_method','PUT')}}
+				{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+			{!! Form::close() !!}
+			</div>
 		</div>
 	</div>
 	
@@ -90,20 +106,23 @@
 		}, 500);
 
 		$('#createform').slideToggle();
+		$('#editform').css('display','none');
 	}
 	
 	function showeditform(id){
 		$('#editform').css('display','block');
 		$('#createform').css('display','none');
 		$.ajax({
-			url: 'categories/'+id+'/edit',
+			url: 'categories/'+id,
 			type: 'get',
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8',
 			success:function(data){
-				console.log(data);
-				$('#inserteditform').empty();
-				$('#inserteditform').html(data.editform);
+				$('#nameedit').val(data.name);
+				var prevaction = $('#formeditaction').attr('action');
+				var res = prevaction.split("/categories");
+				var newaction = res[0]+'/categories/'+data.id;
+				$('#formeditaction').attr('action', newaction);
 			}, error: function (xhr, ajaxOptions, thrownError) {
 				console.log(xhr.status);
 				console.log(thrownError);

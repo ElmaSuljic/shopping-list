@@ -44,10 +44,18 @@ class ArticlesController extends Controller
 
     }
 
-
+	/* Fetch data for ajax displaying */
     public function show($id)
     {
-       
+		$art = Article::where('articleId',$id)->get();
+		$article = $art[0];
+	   
+		$data = array(
+			'id'  => $article->articleId,
+			'name'  => $article->articlename,
+			'category' => $article->categoryId,
+		);
+		echo json_encode($data);
     }
 
     /* Go to edit category form */
