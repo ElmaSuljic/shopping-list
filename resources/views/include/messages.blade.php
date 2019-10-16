@@ -1,26 +1,13 @@
 @if(count($errors) > 0)
     @foreach($errors->all() as $error)
-		<div class="py-5">
-			<div class="alert alert-danger">
-				{{$error}}
-			</div>
-		</div>
+		<script>toastr.error('{{$error}}','Error')</script>
     @endforeach
 @endif
 
 @if(session('success'))
-	<div class="py-5">
-		<div class="alert alert-success">
-			{{session('success')}}
-		</div>
-	</div>
+	<script>toastr.success('{{session('success')}}','Success')</script>
 @endif
 
 @if(session('error'))
-	<?php $helperror = 1; ?>
-	<div class="py-5">
-		<div class="alert alert-danger">
-			{{session('error')}}
-		</div>
-	</div>
+	<script>toastr.error('{{session('error')}}','Error')</script>
 @endif
