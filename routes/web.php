@@ -27,5 +27,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 /* Categories  */
 Route::resource('users', 'UsersController');
 Route::resource('categories', 'CategoriesController');
+Route::resource('articles', 'ArticlesController');
 Route::post('/categories/store','CategoriesController@store');
 

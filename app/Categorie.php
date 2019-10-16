@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorie extends Model
 {
-     public $primaryKey = 'categoryId';
+	 protected $primaryKey = 'categoryId';
+	 
+	 public function article(){
+        return $this->hasMany('App\Article','articleId', 'articleId');
+    }
 }
