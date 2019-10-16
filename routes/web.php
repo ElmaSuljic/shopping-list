@@ -23,3 +23,9 @@ Route::get('/signin', 'PagesController@signin');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/* Categories  */
+Route::resource('users', 'UsersController');
+Route::resource('categories', 'CategoriesController');
+Route::post('/categories/store','CategoriesController@store');
+

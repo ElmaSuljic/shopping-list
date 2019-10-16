@@ -94,6 +94,9 @@
         </nav>
 
         <main class="">
+			<div class="offset-4 col-md-4 col-sm-12">
+			@include('include.messages')
+			</div>
             @yield('content')
         </main>
     </div>
