@@ -1,115 +1,129 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="py-5">
-<?php 
-	$articles = $data['articles'];
-	$categories = $data['categories']; 
-?>
 	<?php
-	if(isset($helperror)){
-		echo 'ddd';
-		echo '<script>showcreateform();</script>';
-	}
+	/* Check to see if loged user is not an admin	*/
+	if((Auth::user()->usertype == 'user')){
+            // return redirect('/posts')->with('error', 'Unauthorized Page');
+        }
 	?>
+	<?php 
+	$lists = $data['lists'];
+?>
+<style>
 	
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-					Categories
-					<span class="btn btn-primary cursor-pointer" style="float:right;" onclick="showcreateform()">
-						Add new category
-					</span>
-				</div>
 
-                <div class="card-body">
-                @if(count($articles) > 0)   
-				<table class="table">
-					<thead class="thead-dark">
-						<tr>
-						<th scope="col">#</th>
-						<th scope="col">Article</th>
-						<th scope="col">Categorie</th>
-						<th scope="col">Edit</th>
-						<th scope="col">Delete</th>
-						</tr>
-					</thead>
-					<tbody>
-					@foreach($articles as $art)
-						<tr>
-							<th scope="row">1</th>
-							<td>{{$art->articlename}}</td>
-							<td>{{$art->category->categoryname}}</td>
-							<td>
-								<button class="btn btn-primary cursor-pointer">
-									<a style="color:#fff" href="articles/{{$art->articleId}}/edit">Edit</a> 
-								</button>
-							</td>
-							<td>
-							{!!Form::open(['action' => ['ArticlesController@destroy', $art->articleId], 'method' => 'POST', 'class' => 'pull-right'])!!}
-								{{Form::hidden('_method', 'DELETE')}}
-								{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
-							{!!Form::close()!!}
-							</td>
-						</tr>
-					@endforeach
-				  </tbody>
-				</table>
-				@else
-					<p>No categories added</p>
-					<button class="btn btn-primary">
-						<a style="color:#fff" href="artilces/create">Add article</a>
-					</button>
-				@endif		
-                </div>
-            </div>
+</style>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header" style="background: url('{{url('/public/images/list-header.jpg')}}');">
+            <h3>Shopping List</h3>
         </div>
-		<div class="col-md-6" id="createform" style="display:none">
-			
-			<h4 class="py-2">Add new article</h4>
-			{!! Form::open(['action' => 'ArticlesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-			 {{ csrf_field() }}
-			
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
+
+        <ul class="list-unstyled components">
+            <p>Welcome to Shopping list, <br>  {{ Auth::user()->name }} </p>
+			<li>
+                <a href="{{url('dashboard')}}">Home</a>
+            </li>
+            <li>
+                <a href="{{url('lists/create')}}">Add new list</a>
+            </li>
+            <li class="active">
+                <a href="{{url('lists')}}">Your lists</a>
+            </li>
+        </ul>
+    </nav>
+	
+	<div id="content">
+		<div class="row px-3 py-4">
+			<div class="col-sm-12 col-md-6 " id="defaultlists">
+				<div class="card">
+					<div class="card-header">
+						My lists
+					</div>
+
+					<div class="card-body">
+					@if(count($lists) > 0)   
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+							<th scope="col">#</th>
+							<th scope="col">List name</th>
+							<th scope="col">View</th>
+							<th scope="col">Edit</th>
+							<th scope="col">Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+						@foreach($lists as $art)
+							<tr>
+								<th scope="row"><i class="fas fa-circle"></i></th>
+								<td>{{$art->listname}}</td>							
+								<td>
+									<button class="btn btn-success cursor-pointer" onclick="showlist({{$art->listId}})">
+										View
+									</button> 
+								</td>
+								<td>
+									<button class="btn btn-primary cursor-pointer" onclick="showeditform({{$art->listId}})">
+										Edit
+									</button> 
+								</td>
+								<td>
+								{!!Form::open(['action' => ['ListsController@destroy', $art->listId], 'method' => 'POST', 'class' => 'pull-right'])!!}
+									{{Form::hidden('_method', 'DELETE')}}
+									{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+								{!!Form::close()!!}
+								</td>
+							</tr>
+						@endforeach
+					  </tbody>
+					</table>
+					@else
+						<p>You do not have any lists</p>
+					@endif		
+					</div>
 				</div>
-				{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Article name name'])}}
+				
+				
+				
 			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
-				</div>
-				<select name="category" class="form-control form-control-md">
-			        @foreach($categories as $cat)
-						<option value="{{$cat->categoryId}}">{{$cat->categoryname}}</option>
-					@endforeach
-				</select>
+			<div id="showlist" class="col-sm-12 col-md-6" style="display:none">
 			</div>
-			<div style="text-align:center">
-				{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-			</div>
-			{!! Form::close() !!}
 		</div>
+	</div> 
+	
+
+</div> 
+
+<script>
+	$(document).ready(function () {
+
+		$('#sidebarCollapse').on('click', function () {
+			$('#sidebar').toggleClass('active');
+		});
+
+	});
+	
+	function showlist(listid){
+		$('#showlist').css('display','none');
+		var query = listid;
+		$.ajax({
+			url: '{{url('ajax/getList')}}',
+			method:'GET',
+			data:{query:query},
+			dataType:'json',
+			success:function(data){
+				$('#showlist').html('');
+				$('#showlist').html(data.output); 
+				$('#showlist').slideToggle();
+			}, error: function (xhr, ajaxOptions, thrownError) {
+				console.log(xhr.status);
+				console.log(thrownError);
+			}
+		})
 		
-		<div class="col-md-6" id="editform" style="display:none">
-			<h4>Add new category</h4>
-			<div id="inserteditform"></div>
-		</div>
-	</div>
-	
-</div>
-	<script>
-	function showcreateform(){
-		$('html,body').animate({
-			scrollTop: 0
-		}, 500);
-
-		$('#createform').slideToggle();
 	}
-	
-
-	</script>
-
+</script>
 @endsection

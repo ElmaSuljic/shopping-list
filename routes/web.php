@@ -23,10 +23,15 @@ Route::get('/signin', 'PagesController@signin');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 /* Categories  */
 Route::resource('users', 'UsersController');
 Route::resource('categories', 'CategoriesController');
 Route::resource('articles', 'ArticlesController');
+Route::resource('lists', 'ListsController');
 Route::post('/categories/store','CategoriesController@store');
+
+Route::get('/ajax/getArticles', 'AjaxsController@getArticles');
+Route::get('/ajax/getList', 'AjaxsController@getList');
 

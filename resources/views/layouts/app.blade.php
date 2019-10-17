@@ -6,7 +6,6 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
@@ -48,9 +47,7 @@
                             @endif
                         @else
 							@if (Auth::user()->usertype == 'user')
-                            <li class="nav-item">
-								<a class="nav-link" href="lists">{{ __('My lists') }}</a>
-                            </li>
+                           
 							@else
 								<li class="nav-item">
                                     <a class="nav-link" href="home">{{ __('Dashboard') }}</a>
@@ -78,7 +75,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('logout') }}" style="color:black !important;"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -107,6 +104,12 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		new WOW().init();
+		
+		$.ajaxSetup({
+		  headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  }
+});
 	</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="py-5">
 <?php 
-	$registratd = $data['articles'];
+	$articles = $data['articles'];
 	$categories = $data['categories']; 
 ?>
 	<?php

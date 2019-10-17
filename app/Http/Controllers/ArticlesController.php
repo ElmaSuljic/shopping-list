@@ -12,6 +12,12 @@ class ArticlesController extends Controller
      /* See index page of categories    */
     public function index()
     {
+		/* Check to see if logged user is administrator */	
+		$type = auth()->user()->usertype;
+		if(($type  == 'user')){
+            return redirect('/home')->with('error', 'You are not authorized to see that page!');
+        } 
+		
 		$articles = Article::all();
 		/* Get categories to fill select dropdown */
 		$categories = Categorie::all();

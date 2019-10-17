@@ -10,10 +10,10 @@ class CategoriesController extends Controller
     /* See index page of categories    */
     public function index()
     {
-		/* Check to see if user is administrator 
-		if((Auth::user()->usertype == 'user')){
+		$type = auth()->user()->usertype;
+		if(($type  == 'user')){
             return redirect('/home')->with('error', 'You are not authorized to see that page!');
-        }*/
+        } 
 		
 		$categories = Categorie::all();
 		$data = ['categories' =>$categories];
