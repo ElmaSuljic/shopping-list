@@ -34,7 +34,7 @@
 					<tbody>
 					@foreach($categories as $cat)
 						<tr>
-							<th scope="row">1</th>
+							<th scope="row"><i class="fas fa-minus"></i></th>
 							<td>{{$cat->categoryname}}</td>
 							<td>
 								<!--

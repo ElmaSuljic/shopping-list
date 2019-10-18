@@ -37,7 +37,7 @@
 	
 	<div id="content">
 		<div class="row px-3 py-4">
-			<div class="col-sm-12 col-md-6 " id="defaultlists">
+			<div class="col-sm-12 col-md-6" id="defaultlists" style="margin-bottom:30px">
 				<div class="card">
 					<div class="card-header">
 						My lists
@@ -66,8 +66,8 @@
 									</button> 
 								</td>
 								<td>
-									<button class="btn btn-primary cursor-pointer" onclick="showeditform({{$art->listId}})">
-										Edit
+									<button class="btn btn-primary cursor-pointer">
+										<a style="color:#fff !important" href="lists/{{$art->listId}}/edit">Edit</a> 
 									</button> 
 								</td>
 								<td>
@@ -82,6 +82,8 @@
 					</table>
 					@else
 						<p>You do not have any lists</p>
+					<div class="col-md-12"><button class="btn-main-red"><a href="{{url('lists/create')}}">{{ __('Add list') }}</a></button></div>
+					</div>
 					@endif		
 					</div>
 				</div>
@@ -103,6 +105,9 @@
 		$('#sidebarCollapse').on('click', function () {
 			$('#sidebar').toggleClass('active');
 		});
+		
+		$('.navbar-toggler').addClass('navbar-help');
+		$('#activate-sidebar').addClass('sidebar-help');
 
 	});
 	
@@ -125,5 +130,48 @@
 		})
 		
 	}
+	
+	/* Update list when user checks something from the list */
+	
+	function updatelist(listid){
+		var query = listid;
+		$.ajax({
+			url: '{{url('ajax/getList')}}',
+			method:'GET',
+			data:{query:query},
+			dataType:'json',
+			success:function(data){
+				$('#showlist').html('');
+				$('#showlist').html(data.output); 
+			}, error: function (xhr, ajaxOptions, thrownError) {
+				console.log(xhr.status);
+				console.log(thrownError);
+			}
+		})
+		
+	}
+	
+	/* Check items and remove them from list */
+	
+	$(document).on('change', '.listarticles', function() {
+		if(this.checked) {
+			var article = this.value;
+			var listid = $('#listid').val();
+			var query = article+';'+listid;
+			$.ajax({
+				url: '{{url('ajax/crossFromList')}}',
+				method:'GET',
+				data:{query:query},
+				dataType:'json',
+				success:function(data){
+					updatelist(listid);
+				}, error: function (xhr, ajaxOptions, thrownError) {
+					console.log(xhr.status);
+					console.log(thrownError);
+				}
+			})
+		}
+	});
+
 </script>
 @endsection

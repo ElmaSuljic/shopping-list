@@ -49,7 +49,7 @@
 									<tbody>
 									@foreach($registrated as $art)
 										<tr>
-											<th scope="row">1</th>
+											<th scope="row"><i class="fas fa-minus"></i></th>
 											<td>{{$art->name}}</td>
 											<td>{{$art->email}}</td>
 											<td>
@@ -110,7 +110,7 @@
 									<tbody>
 									@foreach($administrators as $art)
 										<tr>
-											<th scope="row">1</th>
+											<th scope="row"><i class="fas fa-minus"></i></th>
 											<td>{{$art->name}}</td>
 											<td>{{$art->email}}</td>
 											<td>

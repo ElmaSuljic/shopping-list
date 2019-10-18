@@ -82,9 +82,8 @@
 <script>
 	$(document).ready(function () {
 
-		$('#sidebarCollapse').on('click', function () {
-			$('#sidebar').toggleClass('active');
-		});
+		$('.navbar-toggler').addClass('navbar-help');
+		$('#activate-sidebar').addClass('sidebar-help');
 
 	});
 
@@ -111,9 +110,7 @@
 		}	
 	}
 	$(document).on('change', '.artikli', function() {
-		console.log('kliknuta');
 		if(this.checked) {
-			console.log('kliknuta2');
 			var artikl = this.value;
 			
 			var added = $('#articlelist').val();

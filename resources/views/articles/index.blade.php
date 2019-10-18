@@ -38,7 +38,7 @@
 					<tbody>
 					@foreach($articles as $art)
 						<tr>
-							<th scope="row">1</th>
+							<th scope="row"><i class="fas fa-minus"></i></th>
 							<td>{{$art->articlename}}</td>
 							<td>{{$art->category->categoryname}}</td>
 							<td>

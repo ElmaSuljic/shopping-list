@@ -34,4 +34,7 @@ Route::post('/categories/store','CategoriesController@store');
 
 Route::get('/ajax/getArticles', 'AjaxsController@getArticles');
 Route::get('/ajax/getList', 'AjaxsController@getList');
+Route::get('/ajax/crossFromList', 'AjaxsController@crossFromList');
+Route::get('/ajax/removeFromList', 'AjaxsController@removeFromList');
+Route::get('/ajax/getArticlesNotInList', 'AjaxsController@getArticlesNotInList');
 

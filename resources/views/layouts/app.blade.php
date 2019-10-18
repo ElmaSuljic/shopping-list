@@ -30,9 +30,9 @@
                     <img class="logo-img" src="{{url('/public/images/list-logo.png')}}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon" style="color:#fff"><i class="fas fa-chevron-circle-down"></i></span>
                 </button>
-
+				<span id="activate-sidebar" onclick="$('#sidebar').toggleClass('active');"><i class="fas fa-bars"></i></span>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
@@ -50,7 +50,7 @@
                            
 							@else
 								<li class="nav-item">
-                                    <a class="nav-link" href="home">{{ __('Dashboard') }}</a>
+                                    <a class="nav-link" href="{{ url('home') }}">{{ __('Dashboard') }}</a>
                                 </li>
                             @endif
                         @endguest
@@ -68,13 +68,18 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                        @else
+                        @else							
+							
+							
+							
                             <li class="nav-item dropdown">
+								
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+									
                                     <a class="dropdown-item" href="{{ route('logout') }}" style="color:black !important;"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -109,7 +114,11 @@
 		  headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		  }
-});
+		});
+		
+		if (screen.width < 800) {
+			$('.table').addClass('table-responsive');
+		} 
 	</script>
 </body>
 </html>

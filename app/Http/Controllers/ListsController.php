@@ -16,6 +16,7 @@ class ListsController extends Controller
 		if(($type  == 'user')){
             return redirect('/home')->with('error', 'You are not authorized to see that page!');
         } 
+		
 		$userid = auth()->user()->id;
 		$lists = Liste::where('userId',$userid)->get();
 		
@@ -23,30 +24,32 @@ class ListsController extends Controller
 		return view('lists.index')->with('data', $data);
     }
 
-    /* Create new category */
-    public function create()
-    {
+    /* Create new List */
+	
+    public function create(){
 		$categories = Categorie::all();
 		$data = ['categories' =>$categories];
         return view('lists.create')->with('data', $data);
     }
 
-    /* Save new category */
-    public function store(Request $request)
-    {
+    /* Save new list and its data */
+	
+    public function store(Request $request){
 		$userid = auth()->user()->id;
-		
+		/* Check to see if required fields are filled */
 		$this->validate($request, [
-            'name' => 'required',
-			'articlelist' => 'required'
+            'name' => 'required'
         ]);
+		/* Create instance of a list */
 		$liste = new Liste;
         $liste->listname = $request->input('name');
 		$liste->userId = $userid;
         $liste->save();
 		$listid = $liste->listId;
+		/* Collect list items */
 		$listarticles = explode(';',$request->input('articlelist'));
-
+		
+		/* Save list items to table listarticles */
 		for($i = 0; $i < (count($listarticles)-1); $i++){
 			$larticle = new Listarticle;
 			$larticle->listId = $listid;
@@ -60,26 +63,27 @@ class ListsController extends Controller
 
     }
 
-	/* Get categorie details for ajax display */
-    public function show($id)
-    {
-		echo 'aaas';	
+	/* Show list - list is displayed through ajax request*/
+    public function show($id){
+		
     }
 
-    /* Go to edit category form */
-    public function edit($id)
-    {
-        $categorie = Categorie::where('categoryId',$id)->get();
+    /* Go to edit list page */
+	
+    public function edit($id){
+		
+        $lists = Liste::where('listId',$id)->get();
+		$list = $lists->first();
+        $categories = Categorie::all();
+		$data = [
+			'list' =>$list,
+			'categories' =>$categories
+		];
         
-        //Check if post exists before deleting
-        if (!isset($categorie)){
-            return redirect('/categories')->with('error', 'There is no category');
-        }
-		/* return  $categorie; */
-        return view('categories.edit')->with('categorie', $categorie);
+        return view('lists.edit')->with('data', $data);
     }
 
-    /* Save changes on category */
+    /* Save changes on list */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -87,28 +91,67 @@ class ListsController extends Controller
         ]);
 
  
-		/* Collect caterorie needed to be edited */
-        $cat = Categorie::where('categoryId',$id)->get();
-		$categorie = $cat->first();
-        $categorie->categoryname = $request->input('name');
-		$categorie->save();
-
-        return redirect('categories')->with('success', 'Post Updated');
+		/* Collect list needed to be edited */
+        $lists = Liste::where('listId',$id)->get();
+		$list = $lists->first();
+        $list->listname = $request->input('name');
+		$list->save();
+		
+		$listname = $request->input('name');
+		/*Update list items*/
+		$listarticles = explode(';',$request->input('articlelist'));
+		
+		$checked = $request->input('articles[]');
+		/* Save list items to table listarticles */
+		for($i = 0; $i < (count($listarticles)-1); $i++){
+			$articleid = $listarticles[$i];
+			$listitems = Listarticle::where('listId',$id)
+			->where('articleId',$articleid)
+			->get();
+			/* Add new list item */
+			if (!isset($listitems[0])){
+				$larticle = new Listarticle;
+				$larticle->listId = $id;
+				$larticle->articleId = $articleid;
+				$larticle->quantity = 0;
+				$checked = $request->input('articles'.$articleid);
+				if($checked != null){
+					$larticle->checked = 1;
+				}else{
+					$larticle->checked = 0;
+				}
+				$larticle->save();
+			}
+			/* Update previously added item */
+			else{
+				$listarticle = $listitems->first();
+				$checked = $request->input('articles'.$articleid);
+				if($checked != null){
+					$listarticle->checked = 1;
+				}else{
+					$listarticle->checked = 0;
+				}
+				$listarticle->save();
+			}			
+		}
+       return redirect('lists')->with('success', 'List is updated!');
     }
 
     /*Delete selected category */
     public function destroy($id)
     {
-		/* Collect categorie that needs to be deleted */
-		$cat = Categorie::where('categoryId',$id)->get();
-		$categorie = $cat->first();
+
+		/* Collect list that needs to be deleted */
+		$lists = Liste::where('listId',$id)->get();
+		$list = $lists->first();
         
-        /* Check does categorie exists - if not return error */
-        if (!isset($categorie)){
-            return redirect('categories')->with('error', 'There is no category!');
+        /* Check does list exists - if not return error */
+        if (!isset($lists)){
+            return redirect('lists')->with('error', 'There is no list!');
         }
-		/* Delete category */	
-        $categorie->delete();
-        return redirect('categories')->with('success', 'Selected category deleted!');
+		/* Delete list */	
+        $list->delete();
+		
+        return redirect('lists')->with('success', 'Selected list deleted!');
     }
 }
