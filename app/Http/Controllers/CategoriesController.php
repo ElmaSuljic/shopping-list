@@ -15,7 +15,7 @@ class CategoriesController extends Controller
             return redirect('/home')->with('error', 'You are not authorized to see that page!');
         } 
 		
-		$categories = Categorie::all();
+		$categories = Categorie::paginate(10);
 		$data = ['categories' =>$categories];
         return view('categories.index')->with('data', $data);
     }
@@ -30,7 +30,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 		$this->validate($request, [
-            'name' => 'required'
+            'name' => ['required',  'unique:categories,categoryname']
         ]);
         $categorie = new Categorie;
         $categorie->categoryname = $request->input('name');

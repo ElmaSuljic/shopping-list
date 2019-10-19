@@ -33,7 +33,7 @@
 	
 	<div id="content">
 		<div class="row px-3 py-4">
-			<div class="col-sm-12 col-md-8 offset-md-2">
+			<div class="col-sm-12 col-md-6 offset-md-3">
 			<h4 class="py-2">Create a new list</h4>
 				{!! Form::open(['action' => 'ListsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 				 {{ csrf_field() }}
@@ -46,7 +46,7 @@
 				</div>
 				<p>Start adding articles to your list. Choose article category and then choose article to add to your list.</p>
 				<div class="row">
-					<div class="col-sm-12 col-md-6" style="padding-left:0">
+					<div class="col-sm-12 col-md-12 px-0">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
@@ -59,7 +59,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-sm-12 col-md-6" id="articles">
+					<div class="col-sm-12 col-md-12 px-0 py-3" id="articles">
 						
 					</div>
 				</div>
@@ -72,8 +72,16 @@
 				
 				
 			</div>
-			<div id="added-items" class="col-sm-12 col-md-8 offset-md-2">
-			</div>
+			
+			<div class="card col-sm-12 col-md-6 offset-md-3 px-0 my-3" id="list-preview" style="display:none">
+				<div class="card-header">
+					<h4 style="text-align:center;text-transform:uppercase">List preview</h4>
+					<small>Here are the items that will be sadev to your list.</small>
+				</div>
+				<div class="card-body" id="added-items">
+				</div>
+			</div>	
+
 		<div>
     </div>
 	</div>
@@ -111,21 +119,35 @@
 	}
 	$(document).on('change', '.artikli', function() {
 		if(this.checked) {
+			$('#list-preview').css('display','block');
 			var artikl = this.value;
 			
 			var added = $('#articlelist').val();
 			added = added + artikl + ';';
 			
 			$('#articlelist').val(added);
+			var articlename = $('#label'+artikl).html();
 			var vrijednost = $('#articlelist').val();
 
 			var id = this.id;
-			var checkbox = $('#div'+id).clone();
-			$('#added-items').append(checkbox);
-			$('#div'+id+' '+id).addClass("dodani");
-			$('#div'+id+' '+id).removeClass("artikli");
+			var newcheckbox = '<div class="form-check custom-control-inline" id="divcheckadded'+artikl+'">';
+			newcheckbox +=	'<input type="checkbox" class="form-check-input listarticles"'; 
+			newcheckbox +=	'value="'+artikl+'" id="check'+artikl+'" name="articles'+artikl+'" >';
+			newcheckbox +=	'<label class="form-check-label" for="exampleCheck'+artikl+'">'+articlename+'</label>';
+			newcheckbox +=	'<span onclick="removefromlistadded('+artikl+')" style="padding-left:15px; cursor:pointer;color:red"><i class="fas fa-minus"></i>';
+			newcheckbox +=	'</span></div>';
+			$('#added-items').append(newcheckbox);
 		}
 	});
+	
+	/* Remove before saving */
+	function removefromlistadded(itemid){
+		
+		var added = $('#articlelist').val();
+		changed = added.replace(itemid+';','');
+		$('#articlelist').val(changed);
+		$('#divcheckadded'+itemid).css('display','none');
+	}
 
 	
 </script>

@@ -14,7 +14,7 @@
 	?>
 	
     <div class="row">
-        <div class="col-md-6">
+        <div class="offset-md-3 col-md-6">
             <div class="card">
                 <div class="card-header">
 					Articles
@@ -54,7 +54,7 @@
 								
 							</td>
 							<td>
-							{!!Form::open(['action' => ['ArticlesController@destroy', $art->articleId], 'method' => 'POST', 'class' => 'pull-right'])!!}
+							{!!Form::open(['action' => ['ArticlesController@destroy', $art->articleId], 'method' => 'POST', 'class' => 'pull-right', 'onclick' => 'return confirm(\'Are you sure you want to delete category?\');'])!!}
 								{{Form::hidden('_method', 'DELETE')}}
 								{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
 							{!!Form::close()!!}
@@ -63,6 +63,7 @@
 					@endforeach
 				  </tbody>
 				</table>
+				{{ $articles->links() }}
 				@else
 					<p>No categories added</p>
 					<button class="btn btn-primary">
@@ -72,66 +73,85 @@
                 </div>
             </div>
         </div>
-		<div class="col-md-6" id="createform" style="display:none">
-			
-			<h4 class="py-2">Add new article</h4>
-			{!! Form::open(['action' => 'ArticlesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-			 {{ csrf_field() }}
-			
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
-				</div>
-				{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Article name'])}}
-			</div>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
-				</div>
-				<select name="category" class="form-control form-control-md">
-			        @foreach($categories as $cat)
-						<option value="{{$cat->categoryId}}">{{$cat->categoryname}}</option>
-					@endforeach
-				</select>
-			</div>
-			<div style="text-align:center">
-				{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-			</div>
-			{!! Form::close() !!}
-		</div>
 		
-		<div class="col-md-6" id="editform" style="display:none">
-			<h4 class="py-2">Edit Article</h4>
-			{!! Form::open(['action' => ['ArticlesController@update', $art->articleId], 'id' => 'formeditaction', 'method' => 'POST']) !!}
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
+		<div class="modal" id="myModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="col-md-12" id="createform" style="display:none">
+							<h4 class="py-2">Add new article</h4>
+							{!! Form::open(['action' => 'ArticlesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+							 {{ csrf_field() }}
+							
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
+								</div>
+								{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Article name'])}}
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+								</div>
+								<select name="category" class="form-control form-control-md">
+									@foreach($categories as $cat)
+										<option value="{{$cat->categoryId}}">{{$cat->categoryname}}</option>
+									@endforeach
+								</select>
+							</div>
+							<div style="text-align:center">
+								{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+							</div>
+							{!! Form::close() !!}
+						</div>
+						
+						<div class="col-md-12" id="editform" style="display:none">
+							<h4 class="py-2">Edit Article</h4>
+							{!! Form::open(['action' => ['ArticlesController@update', $art->articleId], 'id' => 'formeditaction', 'method' => 'POST']) !!}
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-shopping-basket"></i></span>
+									</div>
+									{{Form::text('name', $art->articlename, ['class' => 'form-control', 'id' => 'nameedit', 'placeholder' => 'Article name'])}}
+								</div>
+									
+								<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+								</div>
+								<select name="category" id="categoryselect" class="form-control form-control-md">
+									@foreach($categories as $cat)
+										<option value="{{$cat->categoryId}}" >{{$cat->categoryname}}</option>
+									@endforeach
+								</select>
+							</div>
+								{{Form::hidden('_method','PUT')}}
+								<div style="text-align:center">
+									{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+								</div>
+							{!! Form::close() !!}
+						</div>
 					</div>
-					{{Form::text('name', $art->articlename, ['class' => 'form-control', 'id' => 'nameedit', 'placeholder' => 'Article name'])}}
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
 				</div>
-					
-				<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
-				</div>
-				<select name="category" id="categoryselect" class="form-control form-control-md">
-			        @foreach($categories as $cat)
-						<option value="{{$cat->categoryId}}" >{{$cat->categoryname}}</option>
-					@endforeach
-				</select>
 			</div>
-				{{Form::hidden('_method','PUT')}}
-				<div style="text-align:center">
-					{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-				</div>
-			{!! Form::close() !!}
-			</div>
+		</div>
+						
+		
+		
+		
+		
+		
 		</div>
 	</div>
 	
 </div>
 	<script>
 	function showcreateform(){
+		$('#createform').css('display','none');
+		$('#myModal').modal('show');
 		$('html,body').animate({
 			scrollTop: 0
 		}, 500);
@@ -140,7 +160,9 @@
 		$('#editform').css('display','none');
 	}
 	function showeditform(id){
-		$('#editform').css('display','block');
+		$('#editform').css('display','none');
+		$('#myModal').modal('show');
+		$('#editform').slideToggle();
 		$('#createform').css('display','none');
 		$.ajax({
 			url: 'articles/'+id,

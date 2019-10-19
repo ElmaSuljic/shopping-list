@@ -11,7 +11,7 @@
 	?>
 	
     <div class="row">
-        <div class="col-md-6">
+        <div class="offset-md-3 col-md-6">
             <div class="card">
                 <div class="card-header">
 					Categories
@@ -47,7 +47,7 @@
 								</button> 
 							</td>
 							<td>
-							{!!Form::open(['action' => ['CategoriesController@destroy', $cat->categoryId], 'method' => 'POST', 'class' => 'pull-right'])!!}
+							{!!Form::open(['action' => ['CategoriesController@destroy', $cat->categoryId], 'method' => 'POST', 'onclick' => 'return confirm(\'Are you sure you want to delete category?\');', 'class' => 'pull-right'])!!}
 								{{Form::hidden('_method', 'DELETE')}}
 								{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
 							{!!Form::close()!!}
@@ -56,6 +56,7 @@
 					@endforeach
 				  </tbody>
 				</table>
+				{{ $categories->links() }}
 				@else
 					<p>No categories added</p>
 					<button class="btn btn-primary">
@@ -65,42 +66,57 @@
                 </div>
             </div>
         </div>
-		<div class="col-md-6" id="createform" style="display:none">
-			<h4 class="py-2">Add new category</h4>
-			{!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-			 {{ csrf_field() }}
-			
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+		
+		<div class="modal" id="myModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="col-md-12" id="createform" style="display:none">
+							<h4 class="py-2">Add new category</h4>
+							{!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+							 {{ csrf_field() }}
+							
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+								</div>
+								{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Categorie name'])}}
+							</div>
+							
+							{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+							{!! Form::close() !!}
+						</div>
+						
+						<div class="col-md-12" id="editform" style="display:none">
+							<h4 class="py-2">Edit category</h4>
+							<div id="inserteditform">
+								{!! Form::open(['action' => ['CategoriesController@update', $cat->categoryId], 'id' => 'formeditaction', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+									</div>
+									{{Form::text('name', $cat->categoryname, ['class' => 'form-control', 'id' => 'nameedit','placeholder' => 'Categorie name'])}}
+								</div>
+								{{Form::hidden('_method','PUT')}}
+								{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+							{!! Form::close() !!}
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
 				</div>
-				{{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Categorie name'])}}
 			</div>
-			
-			{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-			{!! Form::close() !!}
 		</div>
 		
-		<div class="col-md-6" id="editform" style="display:none">
-			<h4 class="py-2">Edit category</h4>
-			<div id="inserteditform">
-				{!! Form::open(['action' => ['CategoriesController@update', $cat->categoryId], 'id' => 'formeditaction', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
-					</div>
-					{{Form::text('name', $cat->categoryname, ['class' => 'form-control', 'id' => 'nameedit','placeholder' => 'Categorie name'])}}
-				</div>
-				{{Form::hidden('_method','PUT')}}
-				{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-			{!! Form::close() !!}
-			</div>
-		</div>
 	</div>
 	
 </div>
 	<script>
 	function showcreateform(){
+		$('#createform').css('display','none');
+		$('#myModal').modal('show');
 		$('html,body').animate({
 			scrollTop: 0
 		}, 500);
@@ -110,7 +126,9 @@
 	}
 	
 	function showeditform(id){
-		$('#editform').css('display','block');
+		$('#editform').css('display','none');
+		$('#myModal').modal('show');
+		$('#editform').slideToggle();
 		$('#createform').css('display','none');
 		$.ajax({
 			url: 'categories/'+id,

@@ -34,7 +34,7 @@
 	
 	<div id="content">
 		<div class="row px-3 py-4">
-			<div class="col-sm-12 col-md-8 offset-md-2">
+			<div class="col-sm-12 col-md-6 offset-md-3">
 			<h4 class="py-2">Edit list</h4>
 				{!! Form::open(['action' => ['ListsController@update', $list->listId], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 				 {{ csrf_field() }}
@@ -75,7 +75,7 @@
 				</div>
 				<p class="py-3" >Need more items to your list? Start adding them down below.</p>
 				<div class="row">
-					<div class="col-sm-12 col-md-6" style="padding-left:0">
+					<div class="col-sm-12 col-md-12 px-0">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
@@ -88,7 +88,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-sm-12 col-md-6" id="articles">
+					<div class="py-3 col-sm-12 px-0" id="articles">
 						
 					</div>
 				</div>
@@ -151,7 +151,7 @@
 					changed = added.replace(itemid+';','');
 					$('#articlelist').val(added);
 					$('#divcheck'+itemid).css('display','none');
-					
+					showcategoriearticles();
 				}else{
 					toastr.error(data.message,'Error')
 				}
@@ -166,7 +166,7 @@
 	function removefromlistadded(itemid){
 		var added = $('#articlelist').val();
 		changed = added.replace(itemid+';','');
-		$('#articlelist').val(added);
+		$('#articlelist').val(changed);
 		$('#divcheck'+itemid).css('display','none');
 		
 	}

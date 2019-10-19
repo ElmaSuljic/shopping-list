@@ -28,10 +28,13 @@
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active py-3" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<div class="row">
-						<div class="col-md-8">
+						<div class="offset-md-2 col-md-8">
 							<div class="card">
 								<div class="card-header">
 									Registrated users
+									<span class="btn btn-primary cursor-pointer" style="float:right;" onclick="showcreateformuser()">
+										Add new user
+									</span>
 								</div>
 
 								<div class="card-body">
@@ -65,7 +68,7 @@
 												{!!Form::close()!!}
 											</td>
 											<td>
-											{!!Form::open(['action' => ['UsersController@destroy', $art->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+											{!!Form::open(['action' => ['UsersController@destroy', $art->id], 'method' => 'POST', 'class' => 'pull-right', 'onclick' => 'return confirm(\'Are you sure you want to delete user?\');'])!!}
 												{{Form::hidden('_method', 'DELETE')}}
 												{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
 											{!!Form::close()!!}
@@ -81,12 +84,69 @@
 								</div>
 							</div>
 						</div>
-
+						
+						<div class="modal" id="userModal" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-body">
+									<div class="col-md-12" id="createformuser" style="display:none">
+										<h4 class="py-2">Add new user</h4>
+										{!! Form::open(['action' => 'UsersController@store', 'method' => 'POST']) !!}
+										{{ csrf_field() }}
+										
+										{{Form::hidden('adduser','true')}}
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
+											</div>
+											<input id="name" name="name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+											value="" required placeholder="Fullname">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-at"></i></span>
+											</div>
+											<input id="email" name="email" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+											value="" required placeholder="{{ __('E-Mail Address') }}">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
+											</div>
+											<input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="{{ __('Password') }}">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
+											</div>
+											<input id="password-confirm" type="password" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+										</div>
+										<div style="text-align:center">
+											{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+										</div>
+										{!! Form::close() !!}
+									</div>
+									
+									
+									
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
 					</div>
 				</div>
 				<div class="tab-pane fade py-3" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="offset-md-3 col-md-6">
 							<div class="card">
 								<div class="card-header">
 									Administrators
@@ -128,7 +188,7 @@
 											<td>
 											{!!Form::open(['action' => ['UsersController@destroy', $art->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
 												{{Form::hidden('_method', 'DELETE')}}
-												{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+												{{Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm(\'Are you sure you want to delete user?\');'])}}
 											{!!Form::close()!!}
 											</td>
 										</tr>
@@ -142,78 +202,94 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6" id="createform" style="display:none">
-							<h4 class="py-2">Add new Administrator</h4>
-							{!! Form::open(['action' => 'UsersController@store', 'method' => 'POST']) !!}
-							{{ csrf_field() }}
-							
-							{{Form::hidden('addadmin','true')}}
-							
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
+						
+						
+						<div class="modal" id="myModal" tabindex="-1" role="dialog">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-body">
+									<div class="col-md-12" id="createform" style="display:none">
+										<h4 class="py-2">Add new Administrator</h4>
+										{!! Form::open(['action' => 'UsersController@store', 'method' => 'POST']) !!}
+										{{ csrf_field() }}
+										
+										{{Form::hidden('addadmin','true')}}
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
+											</div>
+											<input id="name" name="name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+											value="" required placeholder="Fullname">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-at"></i></span>
+											</div>
+											<input id="email" name="email" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
+											value="" required placeholder="{{ __('E-Mail Address') }}">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
+											</div>
+											<input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="{{ __('Password') }}">
+										</div>
+										
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
+											</div>
+											<input id="password-confirm" type="password" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+										</div>
+										<div style="text-align:center">
+											{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+										</div>
+										{!! Form::close() !!}
+									</div>
+									
+									
+									<div class="col-md-12" id="editform" style="display:none">
+										<h4 class="py-2">Edit Administrator</h4>
+										{!! Form::open(['action' => ['UsersController@update', 1], 'id' => 'formeditaction', 'method' => 'POST']) !!}
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
+												</div>
+												{{Form::text('name', '', ['class' => 'form-control', 'id' => 'nameedit', 'placeholder' => 'Fullname'])}}
+											</div>
+											
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-at"></i></span>
+												</div>
+												{{Form::text('email', '', ['class' => 'form-control', 'id' => 'emailedit', 'placeholder' => 'Email'])}}
+											</div>
+											
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" name="isadmin" class="custom-control-input" id="isadmin">
+												<label class="custom-control-label" for="isadmin">Administator</label>
+											</div>
+											{{Form::hidden('editadmin', 'true')}}
+											{{Form::hidden('_method','PUT')}}
+											<div style="text-align:center">
+												{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
+											</div>
+										{!! Form::close() !!}
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									</div>
 								</div>
-								<input id="name" name="name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-								value="" required placeholder="Fullname">
 							</div>
-							
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-at"></i></span>
-								</div>
-								<input id="email" name="email" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-								value="" required placeholder="{{ __('E-Mail Address') }}">
-							</div>
-							
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
-								</div>
-								<input type="password" name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="{{ __('Password') }}">
-							</div>
-							
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
-								</div>
-								<input id="password-confirm" type="password" name="password_confirmation" placeholder="{{ __('Confirm Password') }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-							</div>
-							<div style="text-align:center">
-								{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-							</div>
-							{!! Form::close() !!}
 						</div>
 						
 						
-						<div class="col-md-6" id="editform" style="display:none">
-							<h4 class="py-2">Edit Administrator</h4>
-							{!! Form::open(['action' => ['UsersController@update', 1], 'id' => 'formeditaction', 'method' => 'POST']) !!}
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
-									</div>
-									{{Form::text('name', '', ['class' => 'form-control', 'id' => 'nameedit', 'placeholder' => 'Fullname'])}}
-								</div>
-								
-								<div class="input-group mb-3">
-									<div class="input-group-prepend">
-										<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-at"></i></span>
-									</div>
-									{{Form::text('email', '', ['class' => 'form-control', 'id' => 'emailedit', 'placeholder' => 'Email'])}}
-								</div>
-								
-								<div class="custom-control custom-checkbox">
-									<input type="checkbox" name="isadmin" class="custom-control-input" id="isadmin">
-									<label class="custom-control-label" for="isadmin">Administator</label>
-								</div>
-								{{Form::hidden('editadmin', 'true')}}
-								{{Form::hidden('_method','PUT')}}
-								<div style="text-align:center">
-									{{Form::submit('Submit', ['class'=>'btn btn-primary'])}}
-								</div>
-							{!! Form::close() !!}
-							</div>
-						</div>
+						
+					</div>
 				</div>
 				</div>
 			</div>
@@ -224,15 +300,25 @@
 	<script>
 
 	function showcreateform(){
+		$('#myModal').modal('show');
 		$('html,body').animate({
 			scrollTop: 0
 		}, 500);
-
 		$('#createform').slideToggle();
 		$('#editform').css('display','none');
 	}
+	function showcreateformuser(){
+		$('#userModal').modal('show');
+		$('html,body').animate({
+			scrollTop: 0
+		}, 500);
+		$('#createformuser').slideToggle();
+	}
 	function showeditform(id){
-		$('#editform').css('display','block');
+		/* Close form it was displayed before for slide effect */
+		$('#editform').css('display','none');
+		$('#myModal').modal('show');
+		$('#editform').slideToggle();
 		$('#createform').css('display','none');
 		$.ajax({
 			url: 'users/'+id,

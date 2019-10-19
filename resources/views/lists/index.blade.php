@@ -37,7 +37,7 @@
 	
 	<div id="content">
 		<div class="row px-3 py-4">
-			<div class="col-sm-12 col-md-6" id="defaultlists" style="margin-bottom:30px">
+			<div class="col-sm-12 col-md-6 offset-md-3" id="defaultlists" style="margin-bottom:30px">
 				<div class="card">
 					<div class="card-header">
 						My lists
@@ -71,7 +71,7 @@
 									</button> 
 								</td>
 								<td>
-								{!!Form::open(['action' => ['ListsController@destroy', $art->listId], 'method' => 'POST', 'class' => 'pull-right'])!!}
+								{!!Form::open(['action' => ['ListsController@destroy', $art->listId], 'method' => 'POST', 'class' => 'pull-right', 'onclick' => 'return confirm(\'Are you sure you want to delete category?\');'])!!}
 									{{Form::hidden('_method', 'DELETE')}}
 									{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
 								{!!Form::close()!!}
@@ -91,8 +91,21 @@
 				
 				
 			</div>
-			<div id="showlist" class="col-sm-12 col-md-6" style="display:none">
+			
+			<div class="modal" id="myModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div id="showlist" class="col-sm-12" style="display:none"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
 			</div>
+		</div>
+			
+			
 		</div>
 	</div> 
 	
@@ -113,6 +126,7 @@
 	
 	function showlist(listid){
 		$('#showlist').css('display','none');
+		$('#myModal').modal('show');
 		var query = listid;
 		$.ajax({
 			url: '{{url('ajax/getList')}}',

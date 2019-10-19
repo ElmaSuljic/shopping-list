@@ -68,6 +68,20 @@ class UsersController extends Controller
 			$admin->save();
 			return redirect('users')->with('success', 'New administrator added!');
 		}
+
+		/* Check to see if adding new user */
+		if($request->input('adduser')){
+			if($request->input('password') != $request->input('password_confirmation')){
+				return redirect('/users')->with('error', 'Fields password and confirm password do not match!');
+			}
+			$admin = new User;
+			$admin->name = $request->input('name');
+			$admin->email = $request->input('email');
+			$admin->password = Hash::make($request->input('password'));
+			$admin->usertype = 'user';
+			$admin->save();
+			return redirect('users')->with('success', 'New user added!');
+		}
     }
 
     /* Collect user data   */

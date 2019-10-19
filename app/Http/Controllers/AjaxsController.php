@@ -19,16 +19,22 @@ class AjaxsController extends Controller
 		}
 		
 		$articles = Article::where('categoryId',$cat)->get();
-		$output = '';
+		$output = '<div class="card">
+					<div class="card-header">
+						<h4 style="text-align:center;text-transform:uppercase">Choose items from selected category</h4>
+						<small>Check items below to add them to your list.</small>
+					</div>
+					<div class="card-body">';
 		if(count($articles) > 0){
 			foreach($articles as $a){
 				$output .= '
 					<div class="form-check" id="divcheck'.$a->articleId.'">
 						<input type="checkbox" class="form-check-input artikli" value="'.$a->articleId.'" id="check'.$a->articleId.'" name="articles">
-						<label class="form-check-label" for="exampleCheck'.$a->articleId.'">'.$a->articlename.'</label>
+						<label class="form-check-label" id="label'.$a->articleId.'" for="exampleCheck'.$a->articleId.'">'.$a->articlename.'</label>
 					</div>
 				';
 		   }
+		   $output .='</div>';
 		}else{
 			$output = '<p>There are no articles in this category</p>';
 		}
@@ -51,7 +57,12 @@ class AjaxsController extends Controller
 		}
 		
 		$articles = Article::where('categoryId',$cat)->get();
-		$output = '';
+		$output = '<div class="card">
+					<div class="card-header">
+						<h4 style="text-align:center;text-transform:uppercase">Choose items from selected category</h4>
+						<small>Check items below to add them to your list.</small>
+					</div>
+					<div class="card-body">';
 		if(count($articles) > 0){
 			foreach($articles as $a){
 				/* Check to se iff article is already in list */
@@ -61,13 +72,14 @@ class AjaxsController extends Controller
 				->get();
 				if (!isset($listitems[0])){
 					$output .= '
-					<div class="form-check" id="divcheck'.$a->articleId.'">
+					<div class="form-check custom-control-inline" id="divcheck'.$a->articleId.'">
 						<input type="checkbox" class="form-check-input artikli" value="'.$a->articleId.'" id="check'.$a->articleId.'" name="articles">
 						<label class="form-check-label" id="label'.$a->articleId.'" for="exampleCheck'.$a->articleId.'">'.$a->articlename.'</label>
 					</div>
 				';
 				}
 		   }
+		   $output .='</div>';
 		}else{
 			$output = '<p>There are no articles in this category</p>';
 		}

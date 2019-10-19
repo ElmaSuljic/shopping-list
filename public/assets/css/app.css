@@ -29,6 +29,28 @@ a:hover {
 	cursor:pointer;
 }
 
+/* Loader */
+#loader-overlay {
+	top:0;
+	width: 100%;
+	height: 100vh;
+	background: #eeeeee;
+	position: fixed;
+	z-index: 999999;
+}
+.loader{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+}
+
+
 .row{
 	margin-left:0 !important;
 	margin-right:0 !important;
@@ -246,8 +268,8 @@ footer .contact a{
 	border:none;
 }
 
-.btn-main:hover{
-	color:rgba(38,28,78,0.7);
+.btn-main:hover a{
+	color: #727171 !important;
 	border:none;
 }
 .btn-main:after, .btn-main-red:after{
@@ -354,29 +376,6 @@ ul ul a {
 #activate-sidebar{
 	display:none;
 }
-@media (max-width: 768px) {
-	.navbar-help{
-		padding: .25rem 0 !important;
-		margin-right:-160px !important;
-		margin-top:10px !important;
-	}
-	.sidebar-help{
-		float:right;
-		margin-right:-8px;
-		display:block !important;
-	}
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-		z-index:9;
-    }
-	#content{
-		margin-left:0px;
-		width:100%;
-	}
-}
 
 /* Dashboard card */
 
@@ -438,4 +437,45 @@ ul ul a {
     margin-left: 4%;
     margin-right: 4%;
     margin-top: -1.25rem
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+	.navbar-help{
+		padding: .25rem 0 !important;
+		margin-right:-160px !important;
+		margin-top:10px !important;
+	}
+	.sidebar-help{
+		float:right;
+		margin-right:-8px;
+		display:block !important;
+	}
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+		z-index:9;
+    }
+	#content{
+		margin-left:0px;
+		width:100%;
+	}
+	.carousel-caption h5,.carousel-caption p {
+		color:#c13030;
+		text-shadow: 3px 3px 7px #060606;
+	}
+	.boxes-wrapper .text-box{
+		width:100%;
+		height:450px;
+		margin:5px 0;
+		padding:25px 15px;
+	}
+	
+	#about{
+		width:100%;
+		height:30vh;
+		background-image: url("../../images/slide3-mobile.jpg");
+	}
 }

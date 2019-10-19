@@ -18,7 +18,7 @@ class ArticlesController extends Controller
             return redirect('/home')->with('error', 'You are not authorized to see that page!');
         } 
 		
-		$articles = Article::all();
+		$articles = Article::paginate(8);
 		/* Get categories to fill select dropdown */
 		$categories = Categorie::all();
 		$data = [
@@ -38,7 +38,7 @@ class ArticlesController extends Controller
     public function store(Request $request)
     {
 		$this->validate($request, [
-            'name' => 'required',
+             'name' => ['required',  'unique:articles,articlename'],
 			'category' => 'required',
         ]);
 		

@@ -129,11 +129,11 @@
 		}
 		.register-link a{
 			text-transform:uppercase;
-			color:#fff;
+			color:#fff !important;
 			transition:all 0.5s;
 		}
 		.register-link a:hover{
-			color:#474545;
+			color:#474545 !important;
 			text-decoration:none;
 			transform:scale(1.5);
 		}
@@ -165,7 +165,39 @@
 			margin: auto;
 		}
         </style>	
-			
+		
+		<div id="loader-overlay">
+			<div class="loader">
+				<svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+				  <rect x="10" y="50" width="4" height="30" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				  <rect x="20" y="70" width="4" height="50" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				  <rect x="30" y="50" width="4" height="30" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				  <rect x="40" y="70" width="4" height="50" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				</svg>
+			</div>
+		</div>
+		
 		<div class="ml0 mr0 row " style="margin:0">	
 		<div id="carouselExampleIndicators" class="carousel slide carousel-fade shadow-box" data-ride="carousel" data-interval="4000" data-pause="false">
 			<ol class="carousel-indicators slides">
@@ -176,7 +208,7 @@
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 			  <img class="img-responsive d-block w-100" src="{{url('/public/images/slide1.jpg')}}" alt="First slide">
-			  <div class="carousel-caption d-none d-md-block desc">
+			  <div class="carousel-caption d-md-block desc">
 				<h5>Stop writing down your shopping lists</h5>
 				<p>Save paper and create shopping lists using our app</p>
 			  </div>
@@ -184,14 +216,14 @@
 			
 			<div class="carousel-item">
 			  <img class="img-responsive  d-block w-100" src="{{url('/public/images/slide1.jpg')}}" alt="Second slide">
-			  <div class="carousel-caption d-none d-md-block desc">
+			  <div class="carousel-caption d-md-block desc">
 				<h5>Stop writing down your shopping lists</h5>
 				<p>Access your list anytime - anywhere. Just log in app with your account</p>
 			  </div>
 			</div>
 			<div class="carousel-item">
 			  <img class="img-responsive  d-block w-100" src="{{url('/public/images/slide1.jpg')}}" alt="Third slide">
-			  <div class="carousel-caption d-none d-md-block desc">
+			  <div class="carousel-caption d-md-block desc">
 				<h5>Stop writing down your shopping lists</h5>
 				<p>Create new lists and manage with existing</p>
 			  </div>
@@ -246,7 +278,7 @@
 			</div>
 		
 		</div>
-		
+
 		<!-- Parralax effect -->
 		<section id="about">
 			<div class="about-wrapper">
@@ -254,7 +286,7 @@
 		</section>
 		
 		<div class="row py-5">
-			<div class="offset-2 col-md-8 col-sm-12 about-text" >
+			<div class="offset-md-2 col-md-8 col-sm-12 about-text" >
 				<h3 class="wow fadeInLeft"> Find out a little bit more about us</h3>
 				<p class="wow fadeInRight">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
 				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
@@ -379,5 +411,16 @@
 		</div>
 
     </footer>
-		
+	<script>
+		$(document).ready(function(){
+			$("#loader-overlay").delay(500).fadeOut();
+			$(".loader").delay(1000).fadeOut("slow");
+			 
+			if (screen.width < 800) {
+				$('html').css('overflow-x','hidden');
+				$('.carousel-caption').removeClass('desc');
+				$('.carousel-indicators').removeClass('slides');
+			} 
+		});
+	</script>	
 @endsection

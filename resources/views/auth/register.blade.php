@@ -91,12 +91,22 @@
 		}
 		
 		@media only screen and (max-width: 450px){
+			.main{
+				width:auto;
+				min-height:75vh;
+				height:auto; 
+				top: 60%;
+			}
 			.login-box {
 				width: 280px;
 				height: 400px;
 			}
 			.login-upper {
 				width: 280px;
+			}
+			.login-upper h1{
+				font-size:1.4rem;
+				margin-bottom: 25px;
 			}
 			
 			.login-box > .login-upper {
