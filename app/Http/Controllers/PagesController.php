@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yaml;
 
 class PagesController extends Controller
 {
     /* Index page of applications */
 	public function index(){
-        $title = 'Welcome To Shopping list!';
-        //return view('pages.index', compact('title'));
-        return view('pages.index')->with('title', $title);
+		$yamlcontent = Yaml::parse(file_get_contents('homepageconfig.yml'));
+        return view('pages.index')->with('ymlcontent', $yamlcontent);
     }
 	
 	/* Register page */

@@ -210,7 +210,7 @@
 			  <img class="img-responsive d-block w-100" src="{{url('/public/images/slide1.jpg')}}" alt="First slide">
 			  <div class="carousel-caption d-md-block desc">
 				<h5>Stop writing down your shopping lists</h5>
-				<p>Save paper and create shopping lists using our app</p>
+				<p>{{$ymlcontent['slidercaption'][0]}}</p>
 			  </div>
 			</div>
 			
@@ -218,14 +218,14 @@
 			  <img class="img-responsive  d-block w-100" src="{{url('/public/images/slide1.jpg')}}" alt="Second slide">
 			  <div class="carousel-caption d-md-block desc">
 				<h5>Stop writing down your shopping lists</h5>
-				<p>Access your list anytime - anywhere. Just log in app with your account</p>
+				<p>{{$ymlcontent['slidercaption'][1]}}</p>
 			  </div>
 			</div>
 			<div class="carousel-item">
 			  <img class="img-responsive  d-block w-100" src="{{url('/public/images/slide1.jpg')}}" alt="Third slide">
 			  <div class="carousel-caption d-md-block desc">
 				<h5>Stop writing down your shopping lists</h5>
-				<p>Create new lists and manage with existing</p>
+				<p>{{$ymlcontent['slidercaption'][2]}}</p>
 			  </div>
 			</div>
 		  </div>
@@ -240,45 +240,26 @@
 		</div>	
 		
 		<div class="row boxes-wrapper">
-			<div class="col-sm-12 wow zoomIn" style="text-align:center">
-				<h4>Welcome to shopping list home page</h4>
+			<div class="col-sm-12 wow zoomIn py-3" style="text-align:center">
+				<h4>{{$ymlcontent['welcomeheader']}}</h4>
 			</div>
+			
+			@foreach($ymlcontent['boxes'] as $b)
 			<div class="col-sm-12 col-md-4 wow zoomIn">
+	
 				<div class="text-box">
 					<h4><i class="fas fa-clipboard-list"></i></h4>
-					<h6>Create your shopping lists</h6>
+					<h6>{{$b['title']}}</h6>
 					<p>
 					<br>
-					You can add your new items on the list, 
-					or you can select an item from our suggestions and add it to your list.
+					{{$b['content']}}
 					
 					</p>
 					
 				</div>
 			</div>
+			@endforeach
 			
-			<div class="col-sm-12 col-md-4 wow zoomIn">
-				<div class="text-box">
-					<h4><i class="fas fa-layer-group"></i></h4>
-					<h6>Group list items</h6>
-					<p>
-					<br>
-					Fruits, dairy, cosmetics, clothes... You name it. You can group items on your list by category, making it organized and easier to use.
-					</p>
-				</div>
-			</div>
-			
-			<div class="col-sm-12 col-md-4 wow zoomIn">
-				<div class="text-box">
-					<h4><i class="fas fa-tasks"></i></h4>
-					<h6>Check bought items</h6>
-					<p>
-					<br>
-					Found what you need? Then cross it of your list and continue to shop.
-					<br>
-					</p>
-				</div>
-			</div>
 		
 		</div>
 
@@ -390,19 +371,19 @@
 					<div class="row">
 						<div class="col-md-12 py-3">
 							<p style="float:left;width:20%"> 
-								<a href="mailto:email@site.com"><i class="fas fa-envelope"></i></a>
+								<a href="{{$ymlcontent['contactlinks']['email']}}"><i class="fas fa-envelope"></i></a>
 							</p>
 							<p style="float:left;width:20%">
-								<a href="tel:00000000"><i class="fas fa-phone"></i></a>
+								<a href="tel:{{$ymlcontent['contactlinks']['phone']}}"><i class="fas fa-phone"></i></a>
 							</p>
 							<p style="float:left;width:20%"> 
-								<a href="#" target="_blank"><i class="fab fa-facebook"></i></a> 
+								<a href="{{$ymlcontent['contactlinks']['facebook']}}" target="_blank"><i class="fab fa-facebook"></i></a> 
 							</p>
 							<p style="float:left;width:20%"> 
-								<a href="#" target="_BLANK"><i class="fab fa-twitter"></i></a>
+								<a href="{{$ymlcontent['contactlinks']['twitter']}}" target="_BLANK"><i class="fab fa-twitter"></i></a>
 							</p>
 							<p style="float:left;width:20%"> 
-								<a href="#" target="_blank"><i class="fab fa-instagram" ></i></a> 
+								<a href="{{$ymlcontent['contactlinks']['instagram']}}" target="_blank"><i class="fab fa-instagram" ></i></a> 
 							</p>
 						</div>
 					</div>

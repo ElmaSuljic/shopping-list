@@ -1,0 +1,23 @@
+
+welcomeheader: 'Welcome to shopping list home page'
+slidercaption:
+    - 'Save paper and create shopping lists using our app'
+    - 'Access your list anytime - anywhere. Just log in app with your account'
+    - 'Create new lists and manage with existing'
+boxes:
+    0:
+        title: 'Create your shopping lists'
+        content: 'You can add your new items on the list,or you can select an item from our suggestions and add it to your list.'
+    1:
+        title: 'Group list items'
+        content: 'Fruits, dairy, cosmetics, clothes... You name it. You can group items on your list by category, making it organized and easier to use.'
+    2:
+        title: 'Check bought items'
+        content: 'Found what you need? Then cross it of your list and continue to shop.'
+contactlinks:
+    email: 'mail@mail.com'
+    phone: '123456789'
+    facebook: 'link1'
+    twitter: 'link2'
+    instagram: 'link3'
+        
