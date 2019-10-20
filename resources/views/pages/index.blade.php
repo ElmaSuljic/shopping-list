@@ -240,6 +240,9 @@
 		</div>	
 		
 		<div class="row boxes-wrapper">
+			<div class="col-sm-12 wow zoomIn" style="text-align:center">
+				<h4>Welcome to shopping list home page</h4>
+			</div>
 			<div class="col-sm-12 col-md-4 wow zoomIn">
 				<div class="text-box">
 					<h4><i class="fas fa-clipboard-list"></i></h4>
@@ -319,7 +322,7 @@
 				<div class="login-upper">
 				   <h1>Welcome to Shopping List</h1>
 					<p>Please log to your profile</p>
-					<form method="post" action="{{ route('login') }}" >
+					<form method="post" id="loginForm" name="loginForm"	action="{{ route('login') }}" >
 						 {{ csrf_field() }}
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">

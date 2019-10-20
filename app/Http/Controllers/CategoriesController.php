@@ -10,6 +10,9 @@ class CategoriesController extends Controller
     /* See index page of categories    */
     public function index()
     {
+		if(!auth()->user()){
+			return redirect('/')->with('error', 'You are trying to see member area without logging in!');
+		}
 		$type = auth()->user()->usertype;
 		if(($type  == 'user')){
             return redirect('/home')->with('error', 'You are not authorized to see that page!');
@@ -17,7 +20,7 @@ class CategoriesController extends Controller
 		
 		$categories = Categorie::paginate(10);
 		$data = ['categories' =>$categories];
-        return view('categories.index')->with('data', $data);
+		return view('categories.index')->with('data', $data);
     }
 
     /* Create new category */

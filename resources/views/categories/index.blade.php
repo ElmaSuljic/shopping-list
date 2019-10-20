@@ -3,19 +3,13 @@
 @section('content')
 <div class="py-5">
 	<?php $categories = $data['categories']; ?>
-	<?php
-	if(isset($helperror)){
-		echo 'ddd';
-		echo '<script>showcreateform();</script>';
-	}
-	?>
-	
+
     <div class="row">
         <div class="offset-md-3 col-md-6">
             <div class="card">
                 <div class="card-header">
 					Categories
-					<span class="btn btn-primary cursor-pointer" style="float:right;" onclick="showcreateform()">
+					<span class="btn btn-primary cursor-pointer" style="float:right;" id="activateAdd" onclick="showcreateform()">
 						Add new category
 					</span>
 				</div>
@@ -47,7 +41,7 @@
 								</button> 
 							</td>
 							<td>
-							{!!Form::open(['action' => ['CategoriesController@destroy', $cat->categoryId], 'method' => 'POST', 'onclick' => 'return confirm(\'Are you sure you want to delete category?\');', 'class' => 'pull-right'])!!}
+							{!!Form::open(['action' => ['CategoriesController@destroy', $cat->categoryId], 'method' => 'POST', 'onclick' => 'return confirm(\'Are you sure you want to delete category?\');' , 'class' => 'pull-right'])!!}
 								{{Form::hidden('_method', 'DELETE')}}
 								{{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
 							{!!Form::close()!!}
@@ -59,9 +53,9 @@
 				{{ $categories->links() }}
 				@else
 					<p>No categories added</p>
-					<button class="btn btn-primary">
-						<a style="color:#fff" href="categories/create">Add categorie</a>
-					</button>
+					<span class="btn btn-primary cursor-pointer" style="float:right;" id="activateAdd" onclick="showcreateform()">
+						Add new category
+					</span>
 				@endif		
                 </div>
             </div>
@@ -73,7 +67,7 @@
 					<div class="modal-body">
 						<div class="col-md-12" id="createform" style="display:none">
 							<h4 class="py-2">Add new category</h4>
-							{!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+							{!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'id' => 'addCategoryForm' ,'enctype' => 'multipart/form-data']) !!}
 							 {{ csrf_field() }}
 							
 							<div class="input-group mb-3">

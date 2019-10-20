@@ -36,7 +36,7 @@
 		</div>
 		
 		<div class="col-sm-12 col-md-3 col-lg-3">
-			<div onclick="window.location.href='categories'" class="boxq">
+			<div onclick="window.location.href='categories'" id="categoriesBtn" class="boxq">
 				<i style="font-size:50px" class="fas fa-th-large"></i>
 				<p>Manage categories</p>
 			</div>		

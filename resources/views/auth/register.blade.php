@@ -134,7 +134,7 @@
 				
 				<div class="login-upper">
 				   <h1>Create a new profile to start using our application.</h1>
-					<form method="post" action="{{ route('register') }}" >
+					<form method="post" id="registerForm" name="registerForm" action="{{ route('register') }}" >
 						 {{ csrf_field() }}
 						@error('name')
 							<div class="col-sm-12">
@@ -148,7 +148,7 @@
 								<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
 							</div>
 							<input id="name" name="name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-							value="{{ old('name') }}" required placeholder="Your fullname">
+							@error('name') value="{{ old('name') }}"  @enderror required placeholder="Your fullname">
 						</div>
 						
 						@error('email')
@@ -163,7 +163,7 @@
 								<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-at"></i></span>
 							</div>
 							<input id="email" name="email" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" 
-							value="{{ old('email') }}" required placeholder="{{ __('E-Mail Address') }}">
+							@error('email') value="{{ old('email') }}"  @enderror required placeholder="{{ __('E-Mail Address') }}">
 						</div>
 						
 						 @error('password')
