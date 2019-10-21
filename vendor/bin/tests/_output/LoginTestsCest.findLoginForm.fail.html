@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="ptHXusRhOXfLvT0CAD4Tl94Mm4Gi7nalCgmRITmJ">
+    <title>ShoppingList</title>
+
+    <!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+	<script src="http://localhost/shoppinglist/public/assets/js/toastr.min.js" ></script>
+	<script src="http://localhost/shoppinglist/public/assets/js/sweetalert.min.js" ></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="http://localhost/shoppinglist/public/assets/css/app.css" rel="stylesheet"> 
+	<link href="http://localhost/shoppinglist/public/assets/css/toastr.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://localhost/shoppinglist/public/assets/fonts/fontawesome/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-md bg-black ">
+            <div class="container">
+                <a class="navbar-brand" href="http://localhost/shoppinglist">
+                    <img class="logo-img" src="http://localhost/shoppinglist/public/images/logo-sl.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="color:#fff"><i class="fas fa-chevron-circle-down"></i></span>
+                </button>
+				<span id="activate-sidebar" onclick="$('#sidebar').toggleClass('active');"><i class="fas fa-bars"></i></span>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+						
+                                            </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                                                    <li class="nav-item">
+                                <a class="nav-link" onclick="showloginform()">Login</a>
+                            </li>
+                                                            <li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/shoppinglist/register">Register</a>
+                                </li>
+                                                                        </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="">
+			<div class="offset-4 col-md-4 col-sm-12">
+						</div>
+              
+		<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+		<!-- Styles -->
+        <style>
+		@import  url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+		*{
+			margin:0;
+		}
+       
+
+		body{
+			font-family: 'Roboto', sans-serif;
+			background-color: #DEDEDE;
+		}
+		
+		.carousel{
+			max-height:90vh;
+			background-image:url('http://localhost/shoppinglist/public/images/slide1.jpg');
+		}
+		
+		.desc{
+			background-color:#474545b5;
+			padding:25px;
+			border-radius:5px;
+			box-shadow: 1px 15px 30px -10px rgba(0,0,0,0.5);
+			top: 50%;
+			left: 5%;
+			width: 450px;
+			height: 300px;
+			transform:translateY(-50%);
+    
+		}
+		
+		.desc h5{
+			font-family: 'Nunito', sans-serif;
+			padding: 50px 0 25px;
+			font-size:1.75rem;
+		}
+		
+		.desc p{
+			font-family: 'Nunito', sans-serif;
+			padding: 10px 0;
+			font-size:1rem;
+		}
+		
+		.slides{
+			margin:0;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 5%;
+			top: 65%;
+			width: 450px;
+			
+		}
+		.carousel-control-prev, .carousel-control-next{
+			display:none;
+		}
+		.img-responsive{
+			width: 200px;
+			height: 90vh;
+			object-fit: cover;
+		}
+		
+		 .main{
+			width:100%;
+			height:100vh; 
+			background:#eee;
+		}
+		.login-box {
+			width: 400px;
+			height: 600px;
+			background: #474545;
+			position: absolute;
+			z-index: 1003;
+			top: 50%;
+			left: 50%;
+			box-shadow: 1px 15px 30px -10px rgba(0,0,0,0.5);
+			border-radius: 5px;
+			transform: translate(-50%,-50%);
+		}
+		.login-div {
+			text-align:center;
+			padding:45px 25px 35px;
+		}
+		
+		#login-slika {
+			width: 80%;
+		}
+		
+		.login-upper {
+			position: relative;
+			float: left;
+			width: 400px;
+			min-height: 320px;
+			height:auto;
+			background: rgba(254,96,93,1);
+			background: -moz-linear-gradient(top, rgba(254,96,93,1) 0%, rgba(242,67,65,1) 74%, rgba(242,67,65,1) 100%);
+			background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254,96,93,1)), color-stop(74%, rgba(242,67,65,1)), color-stop(100%, rgba(242,67,65,1)));
+			background: -webkit-linear-gradient(top, rgba(254,96,93,1) 0%, rgba(242,67,65,1) 74%, rgba(242,67,65,1) 100%);
+			background: -o-linear-gradient(top, rgba(254,96,93,1) 0%, rgba(242,67,65,1) 74%, rgba(242,67,65,1) 100%);
+			background: -ms-linear-gradient(top, rgba(254,96,93,1) 0%, rgba(242,67,65,1) 74%, rgba(242,67,65,1) 100%);
+			background: linear-gradient(to bottom, rgba(254,96,93,1) 0%, rgba(242,67,65,1) 74%, rgba(242,67,65,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fe605d', endColorstr='#f24341', GradientType=0 );
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fe605d', endColorstr='#f24341', GradientType=0 );
+			padding:15px 0;
+			left: 0px;
+			color: #fff;
+			text-align: center;
+			box-shadow: 1px 1px 20px -5px rgba(0,0,0,0.5);
+			border-radius: 3px;
+			transition: all 0.5s;
+			transition-delay: 1.3s;
+		}
+		.login-upper h1 {
+			font-size: 2rem;
+		}
+		
+		.login-box > .login-upper {
+			width: 450px;
+			left: -25px;
+		}
+		.register-link{
+			width:95%;
+			margin:auto;
+			margin-top:10px;
+		}
+		.register-link a{
+			text-transform:uppercase;
+			color:#fff !important;
+			transition:all 0.5s;
+		}
+		.register-link a:hover{
+			color:#474545 !important;
+			text-decoration:none;
+			transform:scale(1.5);
+		}
+		
+		.help-block{
+			font-size:10px;
+		}
+		
+		@media  only screen and (max-width: 450px){
+			.login-box {
+				width: 280px;
+				height: 400px;
+			}
+			.login-upper {
+				width: 280px;
+			}
+			
+			.login-box > .login-upper {
+				width: 300px;
+				left: -10px;
+			}
+			
+			#login-slika {
+				width: 80%;
+			}
+		}
+		.input-group{
+			width: 90%;
+			margin: auto;
+		}
+        </style>	
+		
+		<div id="loader-overlay">
+			<div class="loader">
+				<svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			  viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+				  <rect x="10" y="50" width="4" height="30" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				  <rect x="20" y="70" width="4" height="50" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				  <rect x="30" y="50" width="4" height="30" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				  <rect x="40" y="70" width="4" height="50" fill="#c13030">
+					<animateTransform attributeType="xml"
+					  attributeName="transform" type="translate"
+					  values="0 0; 0 20; 0 0"
+					  begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+				  </rect>
+				</svg>
+			</div>
+		</div>
+		
+		<div class="ml0 mr0 row " style="margin:0">	
+		<div id="carouselExampleIndicators" class="carousel slide carousel-fade shadow-box" data-ride="carousel" data-interval="4000" data-pause="false">
+			<ol class="carousel-indicators slides">
+				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			</ol>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+			  <img class="img-responsive d-block w-100" src="http://localhost/shoppinglist/public/images/slide1.jpg" alt="First slide">
+			  <div class="carousel-caption d-md-block desc">
+				<h5>Stop writing down your shopping lists</h5>
+				<p>Save paper and create shopping lists using our app</p>
+			  </div>
+			</div>
+			
+			<div class="carousel-item">
+			  <img class="img-responsive  d-block w-100" src="http://localhost/shoppinglist/public/images/slide1.jpg" alt="Second slide">
+			  <div class="carousel-caption d-md-block desc">
+				<h5>Stop writing down your shopping lists</h5>
+				<p>Access your list anytime - anywhere. Just log in app with your account</p>
+			  </div>
+			</div>
+			<div class="carousel-item">
+			  <img class="img-responsive  d-block w-100" src="http://localhost/shoppinglist/public/images/slide1.jpg" alt="Third slide">
+			  <div class="carousel-caption d-md-block desc">
+				<h5>Stop writing down your shopping lists</h5>
+				<p>Create new lists and manage with existing</p>
+			  </div>
+			</div>
+		  </div>
+		  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		  </a>
+		  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		  </a>
+		</div>	
+		
+		<div class="row boxes-wrapper">
+		
+			<h4>Welcome to shopping list home page</h4>
+		
+			<div class="col-sm-12 col-md-4 wow zoomIn">
+				<div class="text-box">
+					<h4><i class="fas fa-clipboard-list"></i></h4>
+					<h6>Create your shopping lists</h6>
+					<p>
+					<br>
+					You can add your new items on the list, 
+					or you can select an item from our suggestions and add it to your list.
+					
+					</p>
+					
+				</div>
+			</div>
+			
+			<div class="col-sm-12 col-md-4 wow zoomIn">
+				<div class="text-box">
+					<h4><i class="fas fa-layer-group"></i></h4>
+					<h6>Group list items</h6>
+					<p>
+					<br>
+					Fruits, dairy, cosmetics, clothes... You name it. You can group items on your list by category, making it organized and easier to use.
+					</p>
+				</div>
+			</div>
+			
+			<div class="col-sm-12 col-md-4 wow zoomIn">
+				<div class="text-box">
+					<h4><i class="fas fa-tasks"></i></h4>
+					<h6>Check bought items</h6>
+					<p>
+					<br>
+					Found what you need? Then cross it of your list and continue to shop.
+					<br>
+					</p>
+				</div>
+			</div>
+		
+		</div>
+
+		<!-- Parralax effect -->
+		<section id="about">
+			<div class="about-wrapper">
+			</div>	
+		</section>
+		
+		<div class="row py-5">
+			<div class="offset-md-2 col-md-8 col-sm-12 about-text" >
+				<h3 class="wow fadeInLeft"> Find out a little bit more about us</h3>
+				<p class="wow fadeInRight">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
+				in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>
+				<p class="wow fadeInLeft">
+				Id aliquet risus feugiat in. Auctor neque vitae tempus quam pellentesque nec nam. Egestas integer eget aliquet nibh praesent. 
+				Porta non pulvinar neque laoreet suspendisse interdum consectetur libero id.
+				Morbi non arcu risus quis varius quam quisque. Quisque non tellus orci ac auctor augue mauris augue neque. Non arcu risus quis 
+				varius quam quisque id. Magnis dis parturient montes nascetur ridiculus. Ultricies mi quis hendrerit dolor. Nibh venenatis cras 
+				sed felis eget. Est velit egestas dui id. Venenatis cras sed felis eget velit aliquet sagittis id consectetur. Quis blandit turpis
+				cursus in hac habitasse platea. Nisl pretium fusce id velit. Neque aliquam vestibulum morbi blandit. Est sit amet facilisis magna. Sed lectus vestibulum mattis ullamcorper velit sed ullamcorper. Morbi quis commodo odio aenean sed adipiscing. Tortor at auctor urna nunc id cursus metus.
+				</p>
+				<p class="wow fadeInRight">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
+				in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</p>	
+	
+			</div>
+		</div>
+		
+			
+			<div class="login-box" style="display:none">
+				<span class="close-btn" style="float:right;color:#fff" onclick="showloginform()"><i class="far fa-times-circle"></i></span>
+				<div class="login-div">
+					<img id="login-slika" src="http://localhost/shoppinglist/public/images/list-logo.png" >
+				</div>
+				<div class="login-upper">
+				   <h1>Welcome to Shopping List</h1>
+					<p>Please log to your profile</p>
+					<form method="post" id="loginForm" name="loginForm"	action="http://localhost/shoppinglist/login" >
+						 <input type="hidden" name="_token" value="ptHXusRhOXfLvT0CAD4Tl94Mm4Gi7nalCgmRITmJ">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+							</div>
+							<input type="text" name="email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" value="">
+						</div>
+												<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+							</div>
+							<input type="password"  name="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+						</div>
+						 								 
+						<input type="submit" class="btn btn-primary" value="Login" />								 
+					</form>	
+					
+					<p class="register-link">You don't have a profile? <a href="http://localhost/shoppinglist/register">Register</a> in few steps and use our app</p>
+				</div>
+			</div>	
+		</div>		
+		<script>
+		function showloginform(){
+			$('html,body').animate({
+				scrollTop: 0
+			}, 500);
+
+			$('.login-box').slideToggle();
+		}
+		</script>
+		
+		<footer>
+			<div class="contact">
+				<div class="row">
+					<div class="col-md-5 wow fadeInLeft" style="text-align:center">
+						<img id="footer-slika" src="http://localhost/shoppinglist/public/images/list-logo.png" >
+					</div>
+				
+				
+				
+				<div class="col-md-3 wow fadeInUp" id="member-data">
+					<h4>MEMBER AREA</h4>
+					<div class="row">
+						<div class="col-md-6"><button class="btn-main"><a style="cursor:pointer" onclick="showloginform()">Login</a></button></div>
+						<div class="col-md-6"><button class="btn-main"><a href="http://localhost/shoppinglist/register">Register</a></button></div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 wow fadeInRight" id="cont-data">
+					<h4>Contact us</h4>
+					<div class="row">
+						<div class="col-md-12 py-3">
+							<p style="float:left;width:20%"> 
+								<a href="mailto:email@site.com"><i class="fas fa-envelope"></i></a>
+							</p>
+							<p style="float:left;width:20%">
+								<a href="tel:00000000"><i class="fas fa-phone"></i></a>
+							</p>
+							<p style="float:left;width:20%"> 
+								<a href="#" target="_blank"><i class="fab fa-facebook"></i></a> 
+							</p>
+							<p style="float:left;width:20%"> 
+								<a href="#" target="_BLANK"><i class="fab fa-twitter"></i></a>
+							</p>
+							<p style="float:left;width:20%"> 
+								<a href="#" target="_blank"><i class="fab fa-instagram" ></i></a> 
+							</p>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-12" style="text-align:center"><i class="fa fa-copyright"> 2019</i> <a href="#">Shopping cart</a> </div>
+				
+			</div>
+		</div>
+
+    </footer>
+	<script>
+		$(document).ready(function(){
+			$("#loader-overlay").delay(500).fadeOut();
+			$(".loader").delay(1000).fadeOut("slow");
+			 
+			if (screen.width < 800) {
+				$('html').css('overflow-x','hidden');
+				$('.carousel-caption').removeClass('desc');
+				$('.carousel-indicators').removeClass('slides');
+			} 
+		});
+	</script>	
+        </main>
+    </div>
+	<script src="http://localhost/shoppinglist/public/assets/js/wow.min.js" ></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		new WOW().init();
+		
+		$.ajaxSetup({
+		  headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  }
+		});
+		
+		if (screen.width < 800) {
+			$('.table').addClass('table-responsive');
+		} 
+	</script>
+</body>
+</html>

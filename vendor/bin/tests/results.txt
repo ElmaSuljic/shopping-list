@@ -1,0 +1,206 @@
+Codeception PHP Testing Framework v3.1.1
+Powered by PHPUnit 8.4.1 by Sebastian Bergmann and contributors.
+Running with seed: 
+
+
+[1mAcceptance Tests (15) [22m-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+[35;1mCategoriesTestsCest:[39;22m Categories index not logged
+Signature: [32mCategoriesTestsCest:categoriesIndexNotLogged[39m
+Test: [32mtests\acceptance\CategoriesTestsCest.php:categoriesIndexNotLogged[39m
+[33mScenario --[39m
+[1m I [22mam on page "/categories"
+[1m [22mI am going to Redirect user to start page because he is not logged
+[1m I [22mam on page "/"
+[1m I [22msee "Welcome to shopping list home page"
+[32;1m PASSED [39;22m
+
+[35;1mCategoriesTestsCest:[39;22m Categories index logged as user
+Signature: [32mCategoriesTestsCest:categoriesIndexLoggedAsUser[39m
+Test: [32mtests\acceptance\CategoriesTestsCest.php:categoriesIndexLoggedAsUser[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log with user registrated in RegisterPage test
+[1m I [22msubmit form "#loginForm",{"email":"testuser2@website.com","password":"Test123Test"}
+[1m [22mI am going to User is logged and trying to access categories page
+[1m I [22mam on page "/categories"
+[1m [22mI am going to Redirect user to dashboard because he is not logged
+[1m I [22mam on page "/dashboard"
+[1m I [22msee "Welcome to Shopping list"
+[32;1m PASSED [39;22m
+
+[35;1mCategoriesTestsCest:[39;22m Categories index logged as admin
+Signature: [32mCategoriesTestsCest:categoriesIndexLoggedAsAdmin[39m
+Test: [32mtests\acceptance\CategoriesTestsCest.php:categoriesIndexLoggedAsAdmin[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log with admin
+[1m I [22msubmit form "#loginForm",{"email":"testadmin@mail.com","password":"testpassword123"}
+[1m [22mI am going to Login is successfull
+[1m I [22msee "You are logged in!"
+[1m [22mI am going to Admin is trying to access categories page
+[1m I [22mclick "#categoriesBtn"
+[1m I [22mam on page "/categories"
+[1m I [22msee "Categories"
+[32;1m PASSED [39;22m
+
+[35;1mCategoriesTestsCest:[39;22m Add new category
+Signature: [32mCategoriesTestsCest:addNewCategory[39m
+Test: [32mtests\acceptance\CategoriesTestsCest.php:addNewCategory[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log with admin
+[1m I [22msubmit form "#loginForm",{"email":"testadmin@mail.com","password":"testpassword123"}
+[1m [22mI am going to Login is successfull
+[1m I [22msee "You are logged in!"
+[1m [22mI am going to Admin is trying to access categories page
+[1m I [22mclick "#categoriesBtn"
+[1m I [22mam on page "/categories"
+[1m I [22msee "Categories"
+[1m [22mI am going to Add new category
+[1m I [22mclick "#activateAdd"
+[1m I [22msubmit form "#addCategoryForm",{"name":"New category"}
+[32;1m PASSED [39;22m
+
+[35;1mCategoriesTestsCest:[39;22m Edit category
+Signature: [32mCategoriesTestsCest:editCategory[39m
+Test: [32mtests\acceptance\CategoriesTestsCest.php:editCategory[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log with admin
+[1m I [22msubmit form "#loginForm",{"email":"testadmin@mail.com","password":"testpassword123"}
+[1m [22mI am going to Login is successfull
+[1m I [22msee "You are logged in!"
+[1m [22mI am going to Admin is trying to access categories page
+[1m I [22mclick "#categoriesBtn"
+[1m I [22mam on page "/categories"
+[1m I [22msee "Categories"
+[1m [22mI am going to find Edit button for previously added category - last row in table, second to last column
+[1m I [22mclick "(//table/tbody/tr/td)[position()=last()-1]"
+[1m [22mI am going to check if I see form for editing category
+[1m I [22msee "Edit category"
+[1m [22mI am going to update my data
+[1m I [22msubmit form "#formeditaction",{"name":"New category 2"}
+[32;1m PASSED [39;22m
+
+[35;1mCategoriesTestsCest:[39;22m Delete category
+Signature: [32mCategoriesTestsCest:deleteCategory[39m
+Test: [32mtests\acceptance\CategoriesTestsCest.php:deleteCategory[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log with admin
+[1m I [22msubmit form "#loginForm",{"email":"testadmin@mail.com","password":"testpassword123"}
+[1m [22mI am going to Login is successfull
+[1m I [22msee "You are logged in!"
+[1m [22mI am going to Admin is trying to access categories page
+[1m I [22mclick "#categoriesBtn"
+[1m I [22mam on page "/categories"
+[1m I [22msee "Categories"
+[1m [22mI am going to find Delete button for previously added category - last row in table, last column
+[1m I [22mclick "(//table/tbody/tr/td)[position()=last()-0]"
+[1m [22mI am going to  not delete item because javascript confirm does not work with PHPBrowser
+[32;1m PASSED [39;22m
+
+[35;1mFirstTestCest:[39;22m Try to test
+Signature: [32mFirstTestCest:tryToTest[39m
+Test: [32mtests\acceptance\FirstTestCest.php:tryToTest[39m
+[33mScenario --[39m
+[32;1m PASSED [39;22m
+
+[35;1mFirstTestCest:[39;22m Frontpage works
+Signature: [32mFirstTestCest:frontpageWorks[39m
+Test: [32mtests\acceptance\FirstTestCest.php:frontpageWorks[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22msee "Welcome to shopping list home page"
+[32;1m PASSED [39;22m
+
+[35;1mLoginTestsCest:[39;22m Find login form
+Signature: [32mLoginTestsCest:findLoginForm[39m
+Test: [32mtests\acceptance\LoginTestsCest.php:findLoginForm[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[32;1m PASSED [39;22m
+
+[35;1mLoginTestsCest:[39;22m Log with registrated user
+Signature: [32mLoginTestsCest:logWithRegistratedUser[39m
+Test: [32mtests\acceptance\LoginTestsCest.php:logWithRegistratedUser[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log with user registrated in RegisterPage test
+[1m I [22msubmit form "#loginForm",{"email":"testuser2@website.com","password":"Test123Test"}
+[1m [22mI am going to User is logged
+[1m I [22msee "Welcome to Shopping list"
+[32;1m PASSED [39;22m
+
+[35;1mLoginTestsCest:[39;22m Log as administrator
+Signature: [32mLoginTestsCest:logAsAdministrator[39m
+Test: [32mtests\acceptance\LoginTestsCest.php:logAsAdministrator[39m
+[33mScenario --[39m
+[1m I [22mam on page "/"
+[1m I [22mclick "Login"
+[1m I [22msee element "#loginForm"
+[1m [22mI am going to Log in as administrator
+[1m I [22msubmit form "#loginForm",{"email":"testadmin@mail.com","password":"testpassword123"}
+[1m [22mI am going to Login is successfull
+[1m I [22msee "You are logged in!"
+[32;1m PASSED [39;22m
+
+[35;1mRegisterPageCest:[39;22m Register page exists
+Signature: [32mRegisterPageCest:registerPageExists[39m
+Test: [32mtests\acceptance\RegisterPageCest.php:registerPageExists[39m
+[33mScenario --[39m
+[1m I [22mam on page "/register"
+[32;1m PASSED [39;22m
+
+[35;1mRegisterPageCest:[39;22m Register heading
+Signature: [32mRegisterPageCest:registerHeading[39m
+Test: [32mtests\acceptance\RegisterPageCest.php:registerHeading[39m
+[33mScenario --[39m
+[1m I [22mam on page "/register"
+[1m I [22msee "Create a new profile to start using our application"
+[32;1m PASSED [39;22m
+
+[35;1mRegisterPageCest:[39;22m Try to register
+Signature: [32mRegisterPageCest:tryToRegister[39m
+Test: [32mtests\acceptance\RegisterPageCest.php:tryToRegister[39m
+[33mScenario --[39m
+[1m I [22mam on page "/register"
+[1m I [22msubmit form "#registerForm",{"name":"Test User","email":"testuser2@website.com","password":"Test123Test","password_confirmation":"Test123Test"}
+[1m I [22msee "Welcome to Shopping list"
+[32;1m PASSED [39;22m
+
+[35;1mRegisterPageCest:[39;22m Try to register with error
+Signature: [32mRegisterPageCest:tryToRegisterWithError[39m
+Test: [32mtests\acceptance\RegisterPageCest.php:tryToRegisterWithError[39m
+[33mScenario --[39m
+[1m I [22mam on page "/register"
+[1m I [22msubmit form "#registerForm",{"name":"Test User","email":"testuser2@website.com","password":"Test123Test","password_confirmation":"Test123Test123"}
+[1m I [22msee "The email has already been taken"
+[32;1m PASSED [39;22m
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[1mFunctional Tests (0) [22m------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[1mUnit Tests (0) [22m------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Time: 8.27 seconds, Memory: 12.00 MB
+
+[30;42mOK (15 tests, 25 assertions)[0m

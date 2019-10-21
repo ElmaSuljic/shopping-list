@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+    <title>ShoppingList</title>
+
+    <!-- Scripts -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+	<script src="http://localhost/shoppinglist/public/assets/js/toastr.min.js" ></script>
+	<script src="http://localhost/shoppinglist/public/assets/js/sweetalert.min.js" ></script>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="http://localhost/shoppinglist/public/assets/css/app.css" rel="stylesheet"> 
+	<link href="http://localhost/shoppinglist/public/assets/css/toastr.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://localhost/shoppinglist/public/assets/fonts/fontawesome/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-md bg-black ">
+            <div class="container">
+                <a class="navbar-brand" href="http://localhost/shoppinglist">
+                    <img class="logo-img" src="http://localhost/shoppinglist/public/images/logo-sl.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" style="color:#fff"><i class="fas fa-chevron-circle-down"></i></span>
+                </button>
+				<span id="activate-sidebar" onclick="$('#sidebar').toggleClass('active');"><i class="fas fa-bars"></i></span>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+																					<li class="nav-item">
+                                    <a class="nav-link" href="http://localhost/shoppinglist/home">Dashboard</a>
+                                </li>
+                                                                        </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Authentication Links -->
+                        							
+							
+							
+							
+                            <li class="nav-item dropdown">
+								
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Test Admin <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+									
+                                    <a class="dropdown-item" href="http://localhost/shoppinglist/logout" style="color:black !important;"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="http://localhost/shoppinglist/logout" method="POST" style="display: none;">
+                                        <input type="hidden" name="_token" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">                                    </form>
+                                </div>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="">
+			<div class="offset-4 col-md-4 col-sm-12">
+						</div>
+            <div class="py-5">
+	
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <div class="card">
+                <div class="card-header">
+					Categories
+					<span class="btn btn-primary cursor-pointer" style="float:right;" id="activateAdd" onclick="showcreateform()">
+						Add new category
+					</span>
+				</div>
+
+                <div class="card-body">
+                   
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+						<th scope="col">#</th>
+						<th scope="col">Categorie</th>
+						<th scope="col">Edit</th>
+						<th scope="col">Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Fruits</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/3/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(3)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/3" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Veggies</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/4/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(4)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/4" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Meat</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/5/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(5)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/5" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Dairy</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/6/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(6)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/6" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Cosmetics</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/7/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(7)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/7" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Cleaning supplies</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/8/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(8)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/8" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Clothes</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/9/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(9)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/9" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+											<tr>
+							<th scope="row"><i class="fas fa-minus"></i></th>
+							<td>Shoes</td>
+							<td>
+								<!--
+								<button class="btn btn-primary cursor-pointer">
+									<a style="color:#fff" href="categories/10/edit">Edit</a> 
+								</button> 
+								-->
+								<button class="btn btn-primary cursor-pointer" onclick="showeditform(10)">
+									Edit
+								</button> 
+							</td>
+							<td>
+							<form method="POST" action="http://localhost/shoppinglist/categories/10" accept-charset="UTF-8" onclick="return confirm(&#039;Are you sure you want to delete category?&#039;);" class="pull-right"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<input name="_method" type="hidden" value="DELETE">
+								<input class="btn btn-danger" type="submit" value="Delete">
+							</form>
+							</td>
+						</tr>
+									  </tbody>
+				</table>
+				
+						
+                </div>
+            </div>
+        </div>
+		
+		<div class="modal" id="myModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="col-md-12" id="createform" style="display:none">
+							<h4 class="py-2">Add new category</h4>
+							<form method="POST" action="http://localhost/shoppinglist/categories/store" accept-charset="UTF-8" id="addCategoryForm" enctype="multipart/form-data"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+							 <input type="hidden" name="_token" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+							
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+								</div>
+								<input class="form-control" placeholder="Categorie name" name="name" type="text" value="">
+							</div>
+							
+							<input class="btn btn-primary" type="submit" value="Submit">
+							</form>
+						</div>
+						
+						<div class="col-md-12" id="editform" style="display:none">
+							<h4 class="py-2">Edit category</h4>
+							<div id="inserteditform">
+								<form method="POST" action="http://localhost/shoppinglist/categories/10" accept-charset="UTF-8" id="formeditaction" enctype="multipart/form-data"><input name="_token" type="hidden" value="DrkHHvJ48RsmABqq0EqSf03LVc9vqPoMx4FHVVW5">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-th-large"></i></span>
+									</div>
+									<input class="form-control" id="nameedit" placeholder="Categorie name" name="name" type="text" value="Shoes">
+								</div>
+								<input name="_method" type="hidden" value="PUT">
+								<input class="btn btn-primary" type="submit" value="Submit">
+							</form>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+	<script>
+	function showcreateform(){
+		$('#createform').css('display','none');
+		$('#myModal').modal('show');
+		$('html,body').animate({
+			scrollTop: 0
+		}, 500);
+
+		$('#createform').slideToggle();
+		$('#editform').css('display','none');
+	}
+	
+	function showeditform(id){
+		$('#editform').css('display','none');
+		$('#myModal').modal('show');
+		$('#editform').slideToggle();
+		$('#createform').css('display','none');
+		$.ajax({
+			url: 'categories/'+id,
+			type: 'get',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			success:function(data){
+				$('#nameedit').val(data.name);
+				var prevaction = $('#formeditaction').attr('action');
+				var res = prevaction.split("/categories");
+				var newaction = res[0]+'/categories/'+data.id;
+				$('#formeditaction').attr('action', newaction);
+			}, error: function (xhr, ajaxOptions, thrownError) {
+				console.log(xhr.status);
+				console.log(thrownError);
+			  }
+		  })
+
+	}
+	</script>
+
+        </main>
+    </div>
+	<script src="http://localhost/shoppinglist/public/assets/js/wow.min.js" ></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		new WOW().init();
+		
+		$.ajaxSetup({
+		  headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  }
+		});
+		
+		if (screen.width < 800) {
+			$('.table').addClass('table-responsive');
+		} 
+	</script>
+</body>
+</html>
