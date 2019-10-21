@@ -86,8 +86,7 @@ INSERT INTO `categories` (`categoryId`, `categoryname`, `created_at`, `updated_a
 (7, 'Cosmetics', '2019-10-19 17:15:13', '2019-10-19 17:15:13'),
 (8, 'Cleaning supplies', '2019-10-19 17:15:27', '2019-10-19 17:15:27'),
 (9, 'Clothes', '2019-10-19 17:15:34', '2019-10-19 17:15:34'),
-(10, 'Shoes', '2019-10-19 17:15:39', '2019-10-19 17:15:39'),
-(13, 'New category 2', '2019-10-20 14:36:46', '2019-10-20 14:36:47');
+(10, 'Shoes', '2019-10-19 17:15:39', '2019-10-19 17:15:39');
 
 -- --------------------------------------------------------
 
@@ -243,9 +242,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `usertype`) VALUES
 (6, 'Elma Suljic', 'elmasuljic91@gmail.com', NULL, '$2y$10$Z1pQvdI0Ft9PiEn1r3Vq1eGsqJ526Ve.L355YYgMVUWc.6aur9xNe', NULL, '2019-10-16 17:17:43', '2019-10-16 17:17:43', 'administrator'),
-(14, 'Test Admin', 'testadmin@mail.com', NULL, '$2y$10$LQmlADzu.8KwySzR7AYip.F3dlAFej1k1KcoJz534zbQ0hvCw9.hC', NULL, '2019-10-20 08:59:44', '2019-10-20 08:59:44', 'administrator'),
-(16, 'Test User', 'testuser2@website.com', NULL, '$2y$10$Z4ls6Dr/8NUt/8bwbP5SJORXaNS9Fb.aqkSRomcJML69qfw65AAkm', NULL, '2019-10-20 14:36:49', '2019-10-20 14:36:49', 'user');
-
+(14, 'Test Admin', 'testadmin@mail.com', NULL, '$2y$10$LQmlADzu.8KwySzR7AYip.F3dlAFej1k1KcoJz534zbQ0hvCw9.hC', NULL, '2019-10-20 08:59:44', '2019-10-20 08:59:44', 'administrator');
 --
 -- Constraints for dumped tables
 --
